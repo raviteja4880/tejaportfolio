@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Teja Portfolio</title>
-  <link rel="stylesheet" href="pscript.js">
   <link rel="stylesheet" href="pstyles.css">
+  <script src="pscript.js"></script>
   <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body>
@@ -18,6 +18,7 @@
       <a href="#home" class="active">Home</a>
       <a href="#education">Education</a>
       <a href="#contact">Contact</a>
+      <a href="#about">AboutMe</a>
     </nav>
   </header>
 
@@ -79,25 +80,47 @@
 
       <div class="timeline-item">
         <div class="timeline-dot"></div>
-        <div class="timeline-date">2026</div>
+        <div class="timeline-date">2025</div>
         <div class="timeline-content">
-          <h3>Internship</h3>
-          <p></p>
+          <h3>projects</h3>
+          <p> <a href="https://quiz-app-beta-nine-96.vercel.app/" target="_blank">QuizApp</a></p>
+          <p> <a href="https://raviteja4880.github.io/New-Flavors/" target="_blank">Restuarent Managment</a></p>
         </div>
       </div>
   </section>
 
   <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <h2 class="heading">Contact Me</h2>
-    <form>
-      <input type="text" placeholder="Your Name 📛" required>
-      <input type="email" placeholder="Your Email 📩" required>
-      <textarea rows="6" placeholder="Your Message 🗨️"></textarea>
-      <button type="submit" class="btn">Send</button>
-    </form>
+<section class="contact" id="contact">
+  <h2 class="heading">Contact Me</h2>
+  <form action="https://formspree.io/f/mwpnevjj" method="POST">
+    <input type="text" name="name" placeholder="Your Name 📛" required>
+    <input type="email" name="email" placeholder="Your Email 📩" required>
+    <textarea name="message" rows="6" placeholder="Your Message 🗨️" required></textarea>
+    <button type="submit" class="btn">Send</button>
+  </form>
+</section>
+
+  <section class="about" id="about">
+    <footer class="footer">
+  <div class="footer-content">
+    <h3>Ravi Teja</h3>
+    <p>
+      I'm a passionate web developer skilled in building modern, responsive websites using the MERN stack. 
+      Always eager to learn and take on new challenges.
+    </p>
+          <div class="social-icons">
+        <a href="https://www.linkedin.com/in/ravi-teja-kandula-5a41ab2a0" target="_blank"><i class='bx bxl-linkedin'></i></a>
+        <a href="https://github.com/raviteja4880" target="_blank"><i class='bx bxl-github'></i></a>
+        <a href="https://mailto:ravitejakandul@gmail.com" target="_blank"><i class='bx bxl-gmail'></i></a>
+        <a href="https://wa.me/8885674269" target="_blank"><i class='bx bxl-whatsapp'></i></a>
+      </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2025 Ravi Teja | All Rights Reserved</p>
+  </div>
+</footer>
   </section>
 
-  <script src="script.js"></script>
 </body>
 </html>
