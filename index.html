@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ravi Teja | Portfolio</title>
+  <link rel="stylesheet" href="pstyles.css">
+  <script defer src="pscript.js"></script>
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <a href="#home" class="logo">Ravi<span>Teja</span></a>
+    <i class="bx bx-menu" id="menu-icon"></i>
+
+    <nav class="navbar">
+      <a href="#home" class="active">Home</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <!-- Home Section -->
+  <section class="home" id="home">
+    <div class="home-content">
+      <h1>Hi, I'm <span>Teja</span></h1>
+      <h3 class="text-animation">I am a <span></span></h3>
+
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/ravi-teja-kandula-5a41ab2a0" target="_blank"><i class="bx bxl-linkedin"></i></a>
+        <a href="https://github.com/raviteja4880" target="_blank"><i class="bx bxl-github"></i></a>
+        <a href="mailto:ravitejakandul@gmail.com" target="_blank"><i class="bx bxl-gmail"></i></a>
+        <a href="https://wa.me/8885674269" target="_blank"><i class="bx bxl-whatsapp"></i></a>
+      </div>
+
+      <div class="btn-group">
+        <a href="#contact" class="btn">Hire Me</a>
+        <a href="#contact" class="btn">Contact</a>
+      </div>
+    </div>
+
+    <div class="home-img">
+      <img src="https://ui-avatars.com/api/?name=Ravi+Teja&background=0D8ABC&color=fff&size=200" alt="Profile Image">
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section class="education" id="education">
+    <h2 class="heading">Education</h2>
+    <div class="timeline-items">
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2020</div>
+        <div class="timeline-content">
+          <h3>High School</h3>
+          <p>Sri Chaitanya Techno School</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2021</div>
+        <div class="timeline-content">
+          <h3>Intermediate</h3>
+          <p>Sri Chaitanya Junior College</p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-date">2023</div>
+        <div class="timeline-content">
+          <h3>Bachelor's Degree</h3>
+          <p>Vignan's University</p>
+        </div>
+      </div>
+  </section>
+
+ <!-- Skills & Projects Section -->
+<section class="skills" id="skills">
+  <h2 class="heading">My Skills & Projects</h2>
+
+  <!-- Toggle Buttons -->
+  <div class="toggle-buttons">
+    <button class="btn active" onclick="showTab('skills-tab')">Skills</button>
+    <button class="btn alt" onclick="showTab('projects-tab')">Projects</button>
+  </div>
+
+  <!-- Skills Content -->
+  <div class="tab-content skills-tab active">
+    <div class="skills-container">
+      <div class="skill">
+        <i class="bx bxl-html5"></i>
+        <h3>HTML</h3>
+        <div class="progress-bar"><span data-width="90%"></span></div>
+      </div>
+      <div class="skill">
+        <i class="bx bxl-css3"></i>
+        <h3>CSS</h3>
+        <div class="progress-bar"><span data-width="85%"></span></div>
+      </div>
+      <div class="skill">
+        <i class="bx bxl-javascript"></i>
+        <h3>JavaScript</h3>
+        <div class="progress-bar"><span data-width="60%"></span></div>
+      </div>
+      <div class="skill">
+        <i class="bx bxl-react"></i>
+        <h3>React.js</h3>
+        <div class="progress-bar"><span data-width="75%"></span></div>
+      </div>
+      <div class="skill">
+        <i class="bx bxl-nodejs"></i>
+        <h3>Node.js</h3>
+        <div class="progress-bar"><span data-width="50%"></span></div>
+      </div>
+      <div class="skill">
+        <i class="bx bxl-mongodb"></i>
+        <h3>MongoDB</h3>
+        <div class="progress-bar"><span data-width="75%"></span></div>
+      </div>
+    </div>
+  </div>
+<!-- Projects Content -->
+<div class="tab-content projects-tab">
+  <div class="projects-container">
+
+    <div class="project">
+      <h3>Quiz App</h3>
+      <p>A full-stack quiz platform with JWT authentication, MongoDB Atlas, and role-based dashboards.</p>
+      <div class="project-links">
+        <a href="https://github.com/raviteja4880/quiz-app" target="_blank" class="btn github">
+          <i class="bx bxl-github"></i> GitHub
+        </a>
+        <a href="https://idpquizapp.netlify.app" target="_blank" class="btn demo">
+          <i class="bx bx-link-external"></i> Live Demo
+        </a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>E-commerce Website</h3>
+      <p>A scalable MERN stack e-commerce platform with payment integration and responsive UI.</p>
+      <div class="project-links">
+        <a href="https://github.com/raviteja4880/E-commers" target="_blank" class="btn github">
+          <i class="bx bxl-github"></i> GitHub
+        </a>
+        <a href="https://tejacommerce.netlify.app" target="_blank" class="btn demo">
+          <i class="bx bx-link-external"></i> Live Demo
+        </a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Portfolio Website</h3>
+      <p>Responsive personal portfolio showcasing projects, skills, and contact form.</p>
+      <div class="project-links">
+        <a href="https://github.com/raviteja4880/tejaportfolio" target="_blank" class="btn github">
+          <i class="bx bxl-github"></i> GitHub
+        </a>
+        <a href="https://tejaportfolio1.netlify.app/" target="_blank" class="btn demo">
+          <i class="bx bx-link-external"></i> Live Demo
+        </a>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2 class="heading">Contact Me</h2>
+    <form id="contact-form" action="https://formspree.io/f/mwpnevjj" method="POST">
+      <input type="text" name="name" placeholder="Your Name 📛" required>
+      <input type="email" name="email" placeholder="Your Email 📩" required>
+      <textarea name="message" rows="6" placeholder="Your Message 🗨️" required></textarea>
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" id="about">
+    <div class="footer-content">
+      <h3>Ravi Teja</h3>
+      <p>I'm a passionate web developer skilled in building modern, responsive websites using the MERN stack. Always eager to learn and take on new challenges.</p>
+      <div class="social-icons">
+        <a href="https://www.linkedin.com/in/ravi-teja-kandula-5a41ab2a0" target="_blank"><i class="bx bxl-linkedin"></i></a>
+        <a href="https://github.com/raviteja4880" target="_blank"><i class="bx bxl-github"></i></a>
+        <a href="mailto:ravitejakandul@gmail.com" target="_blank"><i class="bx bxl-gmail"></i></a>
+        <a href="https://wa.me/8885674269" target="_blank"><i class="bx bxl-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Ravi Teja | All Rights Reserved</p>
+    </div>
+  </footer>
+</body>
+</html>
