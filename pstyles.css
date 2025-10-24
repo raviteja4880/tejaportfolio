@@ -402,11 +402,33 @@ section {
 .project h3 { font-size: 2rem; margin-bottom: 1rem; }
 .project p { font-size: 1.4rem; color: #ccc; }
 
+.certificate-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.certificate-card:hover {
+  transform: translateY(-5px);
+}
+
+.certificate-img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+}
+
 /* Contact */
 .contact {
   background: var(--second-bg-color);
   text-align: center;
 }
+
 .contact form {
   max-width: 600px;
   margin: auto;
@@ -414,16 +436,60 @@ section {
   flex-direction: column;
   gap: 2rem;
 }
-.contact input, .contact textarea {
-  padding: 1.5rem;
+
+.contact .input-box {
+  position: relative;
+}
+
+.contact .input-box i {
+  position: absolute;
+  top: 50%;
+  left: 1.5rem;
+  transform: translateY(-50%);
+  font-size: 2rem;
+  color: var(--main-color);
+  transition: 0.3s ease;
+}
+
+.contact input,
+.contact textarea {
+  width: 100%;
+  padding: 1.5rem 1.5rem 1.5rem 4.5rem; 
   border-radius: 1rem;
   border: 2px solid var(--main-color);
   background: var(--bg-color);
   color: var(--text-color);
   font-size: 1.6rem;
+  outline: none;
+  transition: 0.3s ease;
 }
+
+.contact textarea{
+    width: 100%;
+    padding: 1.5rem 1.5rem 4.5rem; 
+    border-radius: 1rem;
+    border: 2px solid var(--main-color);
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 1.6rem;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.contact input:focus,
+.contact textarea:focus {
+  border-color: var(--main-color);
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+
 .contact button {
   align-self: center;
+}
+
+.contact .input-box input:focus ~ i {
+  color: var(--text-color);
+  transform: translateY(-50%) scale(1.1);
 }
 
 /* === Footer === */
@@ -703,25 +769,3 @@ section {
     font-size: 1.2rem;
   }
 }
-
-.certificate-card {
-  background: #fff;
-  border-radius: 15px;
-  padding: 1rem;
-  text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
-}
-
-.certificate-card:hover {
-  transform: translateY(-5px);
-}
-
-.certificate-img {
-  width: 100%;
-  max-width: 300px;
-  height: auto;
-  border-radius: 10px;
-  margin-bottom: 1rem;
-}
-
