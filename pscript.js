@@ -52,14 +52,11 @@ if (form) {
   });
 }
 
-function showTab(tab) {
-  // Remove active classes
-  document.querySelectorAll(".tab-content").forEach(el => el.classList.remove("active"));
-  document.querySelectorAll(".toggle-buttons .btn").forEach(el => el.classList.remove("active"));
-
-  // Add active class to selected tab
-  document.querySelector("." + tab).classList.add("active");
-  event.target.classList.add("active");
+function showTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+  document.querySelectorAll('.toggle-buttons .btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelector(`.${tabName}`).classList.add('active');
+  event.currentTarget.classList.add('active');
 }
 
 // Animate skill bars
