@@ -41,10 +41,10 @@ if (form) {
       });
 
       if (response.ok) {
-        alert("Message sent ✅");
+        alert("Message sent successfully!");
         form.reset();
       } else {
-        alert("Oops! Something went wrong ❌");
+        alert("Oops! Something went wrong");
       }
     } catch (error) {
       alert("Error: " + error.message);
