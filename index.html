@@ -8,6 +8,7 @@
   <script defer src="pscript.js"></script>
   <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 </head>
+
 <body>
   <!-- Header -->
   <header class="header">
@@ -39,7 +40,7 @@
       <div class="btn-group">
         <a href="#contact" class="btn">Hire Me</a>
         <a href="#contact" class="btn">Contact</a>
-        <a href="assets/Resume.pdf" download="esume.pdf" target="_blank" class="btn">Download Resume</a>
+        <a href="assets/Resume.pdf" download="Resume.pdf" target="_blank" class="btn">Download Resume</a>
       </div>
     </div>
 
@@ -80,126 +81,123 @@
       </div>
   </section>
 
-<!-- Skills & Projects Section -->
-<section class="skills" id="skills">
-  <h2 class="heading">My Skills & Projects</h2>
+  <!-- Skills & Projects Section -->
+  <section class="skills" id="skills">
+    <h2 class="heading">My Skills & Projects</h2>
 
-  <!-- Toggle Buttons -->
-  <div class="toggle-buttons">
-    <button class="btn active" onclick="showTab('skills-tab')">Skills</button>
-    <button class="btn alt" onclick="showTab('projects-tab')">Projects</button>
-    <button class="btn alt" onclick="showTab('certificates-tab')">Certificates</button>
-  </div>
-
-  <!-- Skills Content -->
-  <div class="tab-content skills-tab active">
-    <div class="skills-container">
-      <div class="skill">
-        <i class="bx bxl-html5"></i>
-        <h3>HTML</h3>
-        <div class="progress-bar"><span data-width="90%"></span></div>
-      </div>
-      <div class="skill">
-        <i class="bx bxl-css3"></i>
-        <h3>CSS</h3>
-        <div class="progress-bar"><span data-width="85%"></span></div>
-      </div>
-      <div class="skill">
-        <i class="bx bxl-javascript"></i>
-        <h3>JavaScript</h3>
-        <div class="progress-bar"><span data-width="60%"></span></div>
-      </div>
-      <div class="skill">
-        <i class="bx bxl-react"></i>
-        <h3>React.js</h3>
-        <div class="progress-bar"><span data-width="75%"></span></div>
-      </div>
-      <div class="skill">
-        <i class="bx bxl-nodejs"></i>
-        <h3>Node.js</h3>
-        <div class="progress-bar"><span data-width="50%"></span></div>
-      </div>
-      <div class="skill">
-        <i class="bx bxl-mongodb"></i>
-        <h3>MongoDB</h3>
-        <div class="progress-bar"><span data-width="75%"></span></div>
-      </div>
+    <!-- Toggle Buttons -->
+    <div class="toggle-buttons">
+      <button class="btn active" onclick="showTab('skills-tab')">Skills</button>
+      <button class="btn alt" onclick="showTab('projects-tab')">Projects</button>
+      <button class="btn alt" onclick="showTab('certificates-tab')">Certificates</button>
     </div>
-  </div>
 
-  <!-- Projects Content -->
-  <div class="tab-content projects-tab">
-    <div class="projects-container">
-      <div class="project">
-        <h3>Quiz App</h3>
-        <p>A full-stack quiz platform with JWT authentication, MongoDB Atlas, and role-based dashboards.</p>
-        <div class="project-links">
-          <a href="https://github.com/raviteja4880/quiz-app" target="_blank" class="btn github">
-            <i class="bx bxl-github"></i> GitHub
-          </a>
-          <a href="https://idpquizapp.netlify.app" target="_blank" class="btn demo">
-            <i class="bx bx-link-external"></i> Live Demo
-          </a>
+    <!-- Skills Content -->
+    <div class="tab-content skills-tab active">
+      <div class="skills-container">
+        <div class="skill">
+          <i class="bx bxl-html5"></i>
+          <h3>HTML</h3>
+          <div class="progress-bar"><span data-width="90%"></span></div>
+        </div>
+        <div class="skill">
+          <i class="bx bxl-css3"></i>
+          <h3>CSS</h3>
+          <div class="progress-bar"><span data-width="85%"></span></div>
+        </div>
+        <div class="skill">
+          <i class="bx bxl-javascript"></i>
+          <h3>JavaScript</h3>
+          <div class="progress-bar"><span data-width="60%"></span></div>
+        </div>
+        <div class="skill">
+          <i class="bx bxl-react"></i>
+          <h3>React.js</h3>
+          <div class="progress-bar"><span data-width="75%"></span></div>
+        </div>
+        <div class="skill">
+          <i class="bx bxl-nodejs"></i>
+          <h3>Node.js</h3>
+          <div class="progress-bar"><span data-width="50%"></span></div>
+        </div>
+        <div class="skill">
+          <i class="bx bxl-mongodb"></i>
+          <h3>MongoDB</h3>
+          <div class="progress-bar"><span data-width="75%"></span></div>
         </div>
       </div>
+    </div>
 
-      <div class="project">
-        <h3>E-commerce Website</h3>
-        <p>A scalable MERN stack e-commerce platform with payment integration and responsive UI.</p>
-        <div class="project-links">
-          <a href="https://github.com/raviteja4880/E-commers" target="_blank" class="btn github">
-            <i class="bx bxl-github"></i> GitHub
-          </a>
-          <a href="https://tejacommerce.netlify.app" target="_blank" class="btn demo">
-            <i class="bx bx-link-external"></i> Live Demo
-          </a>
+    <!-- Projects Content -->
+    <div class="tab-content projects-tab">
+      <div class="projects-container">
+        <div class="project">
+          <h3>Quiz App</h3>
+          <p>A full-stack quiz platform with JWT authentication, MongoDB Atlas, and role-based dashboards.</p>
+          <div class="project-links">
+            <a href="https://github.com/raviteja4880/quiz-app" target="_blank" class="btn github">
+              <i class="bx bxl-github"></i> GitHub
+            </a>
+            <a href="https://idpquizapp.netlify.app" target="_blank" class="btn demo">
+              <i class="bx bx-link-external"></i> Live Demo
+            </a>
+          </div>
+        </div>
+
+        <div class="project">
+          <h3>E-commerce Website</h3>
+          <p>A scalable MERN stack e-commerce platform with payment integration and responsive UI.</p>
+          <div class="project-links">
+            <a href="https://github.com/raviteja4880/E-commers" target="_blank" class="btn github">
+              <i class="bx bxl-github"></i> GitHub
+            </a>
+            <a href="https://tejacommerce.netlify.app" target="_blank" class="btn demo">
+              <i class="bx bx-link-external"></i> Live Demo
+            </a>
+          </div>
         </div>
       </div>
-
     </div>
-  </div>
 
-  <!-- Certificates Content -->
-<div class="tab-content certificates-tab">
-  <div class="projects-container"> 
-    
-    <div class="project certificate-card">
-      <img src="https://ik.imagekit.io/xoige802e/Screenshot%202025-10-24%20161038.png?updatedAt=1761305527611" alt="GreatLearning Certificate" class="certificate-img">
-      <h3>Introduction To Web Development Certification</h3>
-      <div class="project-links">
-        <a href="https://www.mygreatlearning.com/certificate/XTZGCUZN" target="_blank" class="btn demo">
-          <i class="bx bx-link-external"></i> View Certificate
-        </a>
+    <!-- Certificates Content -->
+    <div class="tab-content certificates-tab">
+      <div class="projects-container"> 
+        <div class="project certificate-card">
+          <img src="https://ik.imagekit.io/xoige802e/Screenshot%202025-10-24%20161038.png?updatedAt=1761305527611" alt="GreatLearning Certificate" class="certificate-img">
+          <h3>Introduction To Web Development Certification</h3>
+          <div class="project-links">
+            <a href="https://www.mygreatlearning.com/certificate/XTZGCUZN" target="_blank" class="btn demo">
+              <i class="bx bx-link-external"></i> View Certificate
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
-
-  </div>
-</section>
-
-<!-- Contact Section -->
-<section class="contact" id="contact">
-  <h2 class="heading">Contact Me</h2>
-  <form id="contact-form" action="https://formspree.io/f/mwpnevjj" method="POST" class="contact-form">
-    
-    <div class="input-box">
-      <i class="bx bx-user"></i>
-      <input type="text" name="name" placeholder="Your Name" required>
     </div>
+  </section>
 
-    <div class="input-box">
-      <i class="bx bx-envelope"></i>
-      <input type="email" name="email" placeholder="Your Email" required>
-    </div>
+  <!-- Contact Section -->
+  <section class="contact" id="contact">
+    <h2 class="heading">Contact Me</h2>
+    <form id="contact-form" action="https://formspree.io/f/mwpnevjj" method="POST" class="contact-form">
+      
+      <div class="input-box">
+        <i class="bx bx-user"></i>
+        <input type="text" name="name" placeholder="Your Name" required>
+      </div>
 
-    <div class="input-box textarea-box">
-      <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
-    </div>
+      <div class="input-box">
+        <i class="bx bx-envelope"></i>
+        <input type="email" name="email" placeholder="Your Email" required>
+      </div>
 
-    <button type="submit" class="btn">Send</button>
-  </form>
-</section>
+      <div class="input-box textarea-box">
+        <textarea name="message" rows="6" placeholder="Your Message" required></textarea>
+      </div>
+
+      <button type="submit" class="btn">Send</button>
+    </form>
+  </section>
 
   <!-- Footer -->
   <footer class="footer" id="about">
