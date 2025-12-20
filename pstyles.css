@@ -62,10 +62,15 @@ body {
   transition: 0.3s ease;
   border-bottom: 3px solid transparent;
 }
-.navbar a:hover,
-.navbar a.active {
+
+.navbar a:hover {
   color: var(--main-color);
   border-bottom: 3px solid var(--main-color);
+}
+
+.navbar a.active {
+  color: var(--main-color);
+  border-bottom: 3px solid transparent;
 }
 
 #menu-icon {
@@ -416,14 +421,18 @@ section {
 .certificate-card {
   background: var(--second-bg-color);
   border-radius: 15px;
-  padding: 1rem;
+  padding: 1.5rem;
   text-align: center;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.3s ease;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
+
 .certificate-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 0 25px var(--main-color);
 }
+
 .certificate-img {
   width: 100%;
   max-width: 300px;
@@ -568,22 +577,60 @@ section {
   /* Navbar */
   #menu-icon { display: block; }
   .navbar {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: var(--bg-color);
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 75%;
+    max-width: 300px;
+    height: 100vh;
+    background: var(--second-bg-color); 
+    display: flex;
     flex-direction: column;
-    text-align: center;
-    padding: 2rem 0;
-    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 8rem 3rem;
+    gap: 2.5rem;
+    transition: right 0.4s ease;
+    z-index: 999;
+    box-shadow: -10px 0 30px rgba(0,0,0,0.6);
   }
-  .navbar.active { display: flex; }
+
+  .navbar.active {
+    right: 0;
+  }
+
   .navbar a {
-    margin: 1.5rem 0;
-    font-size: 2rem;
+    font-size: 2.2rem;
+    width: 100%;
+    text-align: left;
   }
+
+.nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+
+  /* 👇 Cover only background, not menu */
+  width: calc(100% - min(75%, 300px));
+
+  background: rgba(0, 0, 0, 0.45);
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+
+  z-index: 998;
+}
+
+.nav-overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+  
+  .header { padding: 2.5rem 6%; }
+  section { padding: 8rem 6%; }
 
   /* Home */
   .home {

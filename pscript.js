@@ -1,14 +1,22 @@
 // Navbar toggle
-const menu = document.querySelector("#menu-icon");
+const menuIcon = document.querySelector("#menu-icon");
 const navbar = document.querySelector(".navbar");
+const overlay = document.querySelector(".nav-overlay");
 
-menu.onclick = () => {
+menuIcon.onclick = () => {
   navbar.classList.toggle("active");
+  overlay.classList.toggle("active");
+};
+
+overlay.onclick = () => {
+  navbar.classList.remove("active");
+  overlay.classList.remove("active");
 };
 
 document.querySelectorAll(".navbar a").forEach(link => {
   link.onclick = () => {
     navbar.classList.remove("active");
+    overlay.classList.remove("active");
   };
 });
 
