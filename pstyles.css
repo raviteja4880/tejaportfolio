@@ -605,29 +605,23 @@ section {
     text-align: left;
   }
 
-.nav-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: calc(100% - min(75%, 300px));
+    background: rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 998;
+  }
 
-  /* 👇 Cover only background, not menu */
-  width: calc(100% - min(75%, 300px));
-
-  background: rgba(0, 0, 0, 0.45);
-
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-
-  z-index: 998;
-}
-
-.nav-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
+  .nav-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
   
   .header { padding: 2.5rem 6%; }
   section { padding: 8rem 6%; }
