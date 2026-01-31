@@ -32,6 +32,10 @@ if (form) {
       return;
     }
 
+    const submitBtn = form.querySelector("button[type='submit']");
+    submitBtn.disabled = true;
+    submitBtn.innerText = "Sending...";
+
     const data = {
       name: form.name.value,
       email: form.email.value,
@@ -41,11 +45,11 @@ if (form) {
     try {
       const response = await fetch(form.action, {
         method: form.method,
-        headers: { 
+        headers: {
           "Content-Type": "application/json",
-          "Accept": "application/json"
+          "Accept": "application/json",
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
       });
 
       if (response.ok) {
@@ -56,10 +60,14 @@ if (form) {
       }
     } catch (error) {
       alert("Error: " + error.message);
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "Send";
     }
   });
 }
 
+// Tab functionality
 function showTab(tabName) {
   document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
   document.querySelectorAll('.toggle-buttons .btn').forEach(btn => btn.classList.remove('active'));
@@ -83,3 +91,5 @@ function animateSkills() {
 }
 
 window.addEventListener("scroll", animateSkills);
+
+document.getElementById("year").textContent = new Date().getFullYear(); 
