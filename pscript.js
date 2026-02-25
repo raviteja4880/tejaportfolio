@@ -1,3 +1,38 @@
+// ========================= Prevent Zoom on Input Focus (Mobile) =========================
+let lastTouchEnd = 0;
+document.addEventListener('touchend', function (event) {
+  const now = Date.now();
+  if (now - lastTouchEnd <= 300) {
+    event.preventDefault();
+  }
+  lastTouchEnd = now;
+}, false);
+
+document.addEventListener('focusin', function(event) {
+  if (event.target.tagName === 'INPUT' || 
+      event.target.tagName === 'TEXTAREA' ||
+      event.target.tagName === 'SELECT') {
+    const viewportmeta = document.querySelector('meta[name="viewport"]');
+    if (viewportmeta) {
+      viewportmeta.content = 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0';
+    }
+  }
+});
+
+document.addEventListener('focusout', function(event) {
+  if (event.target.tagName === 'INPUT' || 
+      event.target.tagName === 'TEXTAREA' ||
+      event.target.tagName === 'SELECT') {
+    setTimeout(function() {
+      const viewportmeta = document.querySelector('meta[name="viewport"]');
+      if (viewportmeta) {
+        viewportmeta.content = 'width=device-width, initial-scale=1.0';
+      }
+      window.scrollTo(0, 0);
+    }, 100);
+  }
+});
+
 // ========================= Navbar Toggle =========================
 const menuIcon = document.querySelector("#menu-icon");
 const navbar = document.querySelector(".navbar");
@@ -9,6 +44,13 @@ menuIcon.onclick = () => {
   navbar.classList.toggle("active");
   overlay.classList.toggle("active");
   menuIcon.classList.toggle("bx-x");
+  
+  // Prevent body scroll when menu is open
+  if (navbar.classList.contains("active")) {
+    document.body.style.overflow = 'hidden';
+  } else {
+    document.body.style.overflow = '';
+  }
 };
 
 // Close menu when clicking overlay

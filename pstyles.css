@@ -1010,20 +1010,21 @@ section {
   .navbar {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 320px;
+    right: -70%;
+    width: 70%;
+    max-width: 70%;
     height: 100vh;
     background: var(--second-bg-color);
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: center;
-    padding: 6rem 3rem;
-    gap: 2rem;
+    padding: 5rem 2.5rem;
+    gap: 1.5rem;
     transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
     box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+    border-left: 1px solid var(--glass-border);
   }
 
   .navbar.active {
@@ -1031,100 +1032,578 @@ section {
   }
 
   .navbar a {
-    font-size: 2rem;
+    font-size: 1.8rem;
     width: 100%;
     margin-left: 0;
-    padding: 0.5rem 0;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--glass-border);
   }
 
-  .header { padding: 1.5rem 6%; }
+  .navbar a:last-child {
+    border-bottom: none;
+  }
+
+  .header { 
+    padding: 1rem 5%; 
+    justify-content: space-between;
+  }
   
-  section { padding: 7rem 5%; }
+  section { 
+    padding: 6rem 5%; 
+    min-height: auto;
+  }
+
+  /* Section spacing for mobile */
+  #home {
+    padding-bottom: 3rem;
+  }
+  
+  #education {
+    padding-top: 3rem;
+  }
+  
+  #skills {
+    padding-top: 3rem;
+  }
+  
+  #contact {
+    padding-top: 3rem;
+  }
 
   .home {
     flex-direction: column-reverse;
     text-align: center;
-    gap: 3rem;
-    padding-top: 7rem;
+    gap: 3.5rem;
+    padding-top: 9rem;
+    min-height: auto;
+    padding-bottom: 5rem;
   }
 
-  .home-content h1 { font-size: 4rem; }
-  .home-content h3 { font-size: 2.2rem; }
-  .home-content p { margin: 0 auto 2rem; }
+  .home-content h1 { font-size: 3rem; }
+  .home-content h3 { font-size: 1.8rem; }
+  .home-content p { 
+    margin: 0 auto 2rem; 
+    font-size: 1.4rem;
+  }
+  
+  .home-img { 
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+  }
   
   .home-img img { 
-    width: 250px; 
-    height: 250px; 
+    width: 220px; 
+    height: 220px; 
   }
 
   .btn-group {
     justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+    padding: 1rem 2rem;
+    font-size: 1.3rem;
+    text-align: center;
   }
 
   .social-icons {
     justify-content: center;
   }
 
-  .heading { font-size: 3.5rem; margin-bottom: 3rem; }
+  .social-icons a {
+    width: 4rem;
+    height: 4rem;
+    font-size: 1.8rem;
+  }
+
+  .heading { 
+    font-size: 2.8rem; 
+    margin-bottom: 2.5rem;
+    margin-top: 2rem;
+  }
+
+  .heading::after {
+    width: 60px;
+    height: 3px;
+  }
 
   /* Timeline */
-  .timeline-items::before { left: 20px; }
-  .timeline-item { width: 100%; padding-left: 50px !important; padding-right: 20px !important; text-align: left !important; margin-left: 0 !important; }
-  .timeline-dot { left: 10px !important; right: auto !important; }
+  .timeline-items {
+    padding: 1rem 0;
+  }
+  
+  .timeline-items::before { 
+    left: 20px; 
+    width: 2px;
+  }
+  
+  .timeline-item { 
+    width: 100%; 
+    padding-left: 50px !important; 
+    padding-right: 15px !important; 
+    text-align: left !important; 
+    margin-left: 0 !important; 
+    margin-bottom: 20px;
+  }
+  
+  .timeline-dot { 
+    left: 10px !important; 
+    right: auto !important; 
+    width: 16px;
+    height: 16px;
+  }
+  
+  .timeline-date {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+  }
+  
+  .timeline-content {
+    padding: 1.5rem;
+    border-radius: 15px;
+  }
+  
+  .timeline-content h3 {
+    font-size: 1.5rem;
+  }
+  
+  .timeline-content p {
+    font-size: 1.2rem;
+  }
 
   /* Skills */
-  .skills-container { grid-template-columns: 1fr; gap: 1.5rem; }
+  .skills-container { 
+    grid-template-columns: 1fr; 
+    gap: 1.5rem; 
+  }
+  
+  .skill {
+    padding: 1.8rem 1.5rem;
+  }
+  
+  .skill i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .skill h3 {
+    font-size: 1.6rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .progress-bar {
+    height: 6px;
+  }
   
   /* Projects */
-  .projects-container { grid-template-columns: 1fr; }
+  .projects-container { 
+    grid-template-columns: 1fr; 
+    gap: 1.5rem;
+  }
+  
+  .project {
+    padding: 1.8rem;
+  }
+  
+  .project h3 {
+    font-size: 1.5rem;
+  }
+  
+  .project p {
+    font-size: 1.2rem;
+  }
+  
+  .project-links {
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  
+  .project-links .btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  /* Certificate Cards */
+  .certificate-card {
+    padding: 1.2rem;
+  }
+  
+  .certificate-card h3 {
+    font-size: 1.3rem;
+  }
   
   /* Toggle buttons */
-  .toggle-buttons { gap: 0.5rem; }
-  .toggle-buttons .btn { padding: 0.8rem 1.5rem; font-size: 1.2rem; }
+  .toggle-buttons { 
+    gap: 0.8rem; 
+    margin-bottom: 2rem;
+  }
+  
+  .toggle-buttons .btn { 
+    padding: 1rem 1.5rem; 
+    font-size: 1.2rem;
+    min-width: 100px;
+  }
 
   /* Contact */
-  .contact form { width: 95%; }
+  .contact form { 
+    width: 100%; 
+    gap: 1.2rem;
+  }
+  
+  .contact input, 
+  .contact textarea { 
+    font-size: 1.3rem; 
+    padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+    border-radius: 12px;
+  }
+  
+  .contact .input-box i { 
+    font-size: 1.5rem; 
+    left: 1rem; 
+  }
+  
+  .contact textarea {
+    min-height: 120px;
+  }
+  
+  .contact button {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.3rem;
+  }
+
+  /* Footer */
+  .footer {
+    padding: 3rem 1.5rem 1.5rem;
+  }
+  
+  .footer h3 {
+    font-size: 2rem;
+  }
+  
+  .footer p {
+    font-size: 1.2rem;
+    padding: 0 1rem;
+  }
+  
+  .footer .social-icons a {
+    width: 42px;
+    height: 42px;
+    font-size: 1.5rem;
+  }
+  
+  .footer-bottom {
+    font-size: 1.1rem;
+  }
 }
 
 /* Small Phones (≤480px) */
 @media (max-width: 480px) {
   html { font-size: 50%; }
   
-  .header { padding: 1.2rem 5%; }
-  .logo { font-size: 1.8rem; }
-  #menu-icon { font-size: 2.5rem; }
+  .header { 
+    padding: 1rem 4%; 
+    height: 60px;
+  }
   
-  section { padding: 6rem 4%; }
+  .logo { 
+    font-size: 1.6rem; 
+  }
   
-  .home-content h1 { font-size: 3.2rem; }
-  .home-content h3 { font-size: 1.8rem; }
-  .home-img img { width: 220px; height: 220px; }
+  #menu-icon { 
+    font-size: 2.2rem; 
+  }
   
-  .heading { font-size: 2.8rem; }
+  .navbar {
+    width: 70%;
+    max-width: 70%;
+    padding: 4rem 2rem;
+  }
   
-  .btn { padding: 1rem 2rem; font-size: 1.3rem; }
-  .btn-group { flex-direction: column; gap: 1rem; }
-  .btn-group .btn { width: 100%; }
+  .navbar a {
+    font-size: 1.6rem;
+    padding: 1rem 0;
+  }
   
-  .social-icons a { width: 4.5rem; height: 4.5rem; font-size: 2rem; }
+  section { 
+    padding: 5rem 4%; 
+  }
   
-  .timeline-content { padding: 1.5rem; }
-  .timeline-content h3 { font-size: 1.6rem; }
-  .timeline-content p { font-size: 1.2rem; }
+  .home {
+    padding-top: 8rem;
+    padding-bottom: 4rem;
+    gap: 2.5rem;
+  }
   
-  .project { padding: 1.5rem; }
-  .project h3 { font-size: 1.6rem; }
+  .home-content h1 { 
+    font-size: 2.6rem; 
+    line-height: 1.2;
+  }
   
-  .contact input, .contact textarea { font-size: 1.3rem; padding: 1.2rem 1.2rem 1.2rem 4rem; }
-  .contact .input-box i { font-size: 1.6rem; left: 1.2rem; }
+  .home-content h3 { 
+    font-size: 1.5rem; 
+    margin: 1rem 0;
+  }
   
-  .footer h3 { font-size: 2rem; }
-  .footer p { font-size: 1.2rem; }
+  .home-content p { 
+    font-size: 1.3rem; 
+    line-height: 1.6;
+  }
+  
+  .home-img { 
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .home-img img { 
+    width: 190px; 
+    height: 190px; 
+  }
+  
+  .heading { 
+    font-size: 2.4rem; 
+    margin-bottom: 2rem;
+  }
+  
+  .btn { 
+    padding: 0.9rem 1.8rem; 
+    font-size: 1.2rem; 
+    border-radius: 40px;
+  }
+  
+  .btn-group { 
+    flex-direction: column; 
+    gap: 0.8rem; 
+  }
+  
+  .btn-group .btn { 
+    width: 100%; 
+  }
+  
+  .social-icons a { 
+    width: 4rem; 
+    height: 4rem; 
+    font-size: 1.6rem; 
+  }
+  
+  .social-icons {
+    gap: 1rem;
+  }
+  
+  /* Timeline */
+  .timeline-items::before { 
+    left: 15px; 
+  }
+  
+  .timeline-item { 
+    padding-left: 40px !important; 
+    padding-right: 10px !important; 
+  }
+  
+  .timeline-dot { 
+    left: 7px !important; 
+    width: 14px;
+    height: 14px;
+  }
+  
+  .timeline-date {
+    font-size: 1.1rem;
+  }
+  
+  .timeline-content { 
+    padding: 1.2rem; 
+    border-radius: 12px;
+  }
+  
+  .timeline-content h3 { 
+    font-size: 1.4rem; 
+  }
+  
+  .timeline-content p { 
+    font-size: 1.1rem; 
+  }
+  
+  /* Skills */
+  .skill {
+    padding: 1.5rem 1.2rem;
+  }
+  
+  .skill i {
+    font-size: 2.5rem;
+  }
+  
+  .skill h3 {
+    font-size: 1.4rem;
+  }
+  
+  /* Projects */
+  .project { 
+    padding: 1.5rem; 
+    border-radius: 15px;
+  }
+  
+  .project h3 { 
+    font-size: 1.4rem; 
+  }
+  
+  .project p { 
+    font-size: 1.1rem; 
+  }
+  
+  /* Certificate */
+  .certificate-card {
+    padding: 1rem;
+  }
+  
+  .certificate-card h3 {
+    font-size: 1.2rem;
+  }
+  
+  /* Toggle */
+  .toggle-buttons {
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  
+  .toggle-buttons .btn { 
+    padding: 0.8rem 1.2rem; 
+    font-size: 1.1rem; 
+    min-width: 90px;
+    border-radius: 10px;
+  }
+  
+  /* Contact */
+  .contact input, 
+  .contact textarea { 
+    font-size: 1.2rem; 
+    padding: 1rem 1rem 1rem 3rem; 
+    border-radius: 10px;
+  }
+  
+  .contact .input-box i { 
+    font-size: 1.3rem; 
+    left: 0.8rem; 
+  }
+  
+  .contact textarea {
+    min-height: 100px;
+  }
+  
+  .contact button {
+    padding: 0.9rem;
+    font-size: 1.2rem;
+  }
+  
+  /* Footer */
+  .footer {
+    padding: 2.5rem 1rem 1rem;
+  }
+  
+  .footer h3 { 
+    font-size: 1.8rem; 
+  }
+  
+  .footer p { 
+    font-size: 1.1rem; 
+  }
+  
+  .footer .social-icons a {
+    width: 38px;
+    height: 38px;
+    font-size: 1.3rem;
+  }
+  
+  .footer-bottom {
+    font-size: 1rem;
+  }
 }
 
 /* Extra Small Phones (≤360px) */
 @media (max-width: 360px) {
-  html { font-size: 48%; }
-  .home-content h1 { font-size: 2.8rem; }
-  .heading { font-size: 2.4rem; }
+  html { font-size: 47%; }
+  
+  .header { 
+    padding: 0.8rem 3%; 
+  }
+  
+  .logo { 
+    font-size: 1.4rem; 
+  }
+  
+  #menu-icon { 
+    font-size: 2rem; 
+  }
+  
+  section { 
+    padding: 4.5rem 3.5%; 
+  }
+  
+  .home {
+    padding-top: 7.5rem;
+    padding-bottom: 3.5rem;
+    gap: 2rem;
+  }
+  
+  .home-content h1 { 
+    font-size: 2.2rem; 
+  }
+  
+  .home-content h3 { 
+    font-size: 1.3rem; 
+  }
+  
+  .home-content p { 
+    font-size: 1.2rem; 
+  }
+  
+  .home-img { 
+    margin-top: 1rem;
+    margin-bottom: 1.2rem;
+  }
+  
+  .home-img img { 
+    width: 170px; 
+    height: 170px; 
+  }
+  
+  .heading { 
+    font-size: 2rem; 
+  }
+  
+  .btn { 
+    padding: 0.8rem 1.5rem; 
+    font-size: 1.1rem; 
+  }
+  
+  .social-icons a { 
+    width: 3.5rem; 
+    height: 3.5rem; 
+    font-size: 1.4rem; 
+  }
+  
+  .toggle-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .toggle-buttons .btn {
+    width: 80%;
+    max-width: 180px;
+  }
+  
+  .footer h3 { 
+    font-size: 1.6rem; 
+  }
+  
+  .footer .social-icons a {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
 }
