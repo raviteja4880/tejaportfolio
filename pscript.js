@@ -1,4 +1,3 @@
-// ========================= Prevent Zoom on Input Focus (Mobile) =========================
 let lastTouchEnd = 0;
 document.addEventListener('touchend', function (event) {
   const now = Date.now();
@@ -28,7 +27,6 @@ document.addEventListener('focusout', function(event) {
       if (viewportmeta) {
         viewportmeta.content = 'width=device-width, initial-scale=1.0';
       }
-      window.scrollTo(0, 0);
     }, 100);
   }
 });

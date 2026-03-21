@@ -520,6 +520,26 @@ section {
   transition: all 0.3s ease;
 }
 
+.skill {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.skill i {
+  font-size: 40px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.devicon-redis-plain {
+  line-height: 1;
+}
+
 /* Responsive toggle buttons */
 @media (max-width: 768px) {
   .toggle-buttons {
