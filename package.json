@@ -1,0 +1,21 @@
+{
+  "name": "tejaportfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio of Ravi Teja",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "build": "echo 'Building static site...'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "portfolio",
+    "web-development",
+    "mern-stack"
+  ],
+  "author": "Ravi Teja",
+  "license": "MIT",
+  "devDependencies": {
+    "serve": "^14.2.0"
+  }
+}
