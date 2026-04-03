@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Apply reveal animation to elements
     const revealElements = document.querySelectorAll('.skill-category, .project-card, .timeline-item, .contact-info, .contact-form, .hero-content, .hero-image-container');
     
-    // Add reveal class to CSS dynamically if needed, or assume it's there
+    // Set initial state
     revealElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -86,16 +86,22 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 
-    // Custom function to handle the reveal-active state
-    window.addEventListener('scroll', () => {
+    // Handle Reveal on Scroll and Load
+    const revealOnScroll = () => {
         revealElements.forEach(el => {
             const rect = el.getBoundingClientRect();
-            if (rect.top < window.innerHeight - 100) {
+            const windowHeight = window.innerHeight;
+            // Reveal if element is 20px into the viewport or already passed it
+            if (rect.top < windowHeight - 20) {
                 el.style.opacity = '1';
                 el.style.transform = 'translateY(0)';
             }
         });
-    });
+    };
+
+    // Run once on load to show elements already in viewport
+    revealOnScroll();
+    window.addEventListener('scroll', revealOnScroll);
 
     // 4. Custom Cursor Effect (Optional Premium Feel)
     const cursor = document.querySelector('.cursor');
