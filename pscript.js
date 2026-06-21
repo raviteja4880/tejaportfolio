@@ -1,5 +1,3 @@
-/* ========================= Portfolio Interactivity ========================= */
-
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Smooth Navigation Highlighting
     const sections = document.querySelectorAll('section');
@@ -39,12 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeNav = () => {
         navbar.classList.remove('active');
         menuIcon.classList.remove('active');
+        menuIcon.setAttribute('aria-expanded', 'false');
     };
 
     menuIcon.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent document click from triggering immediately
         navbar.classList.toggle('active');
-        menuIcon.classList.toggle('active');
+        const isActive = menuIcon.classList.toggle('active');
+        menuIcon.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     });
 
     // Close when clicking a nav link
