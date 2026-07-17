@@ -117,8 +117,8 @@ body {
     height: 100%;
     z-index: -1;
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(rgba(255, 255, 255, 0.003) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.003) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
 }
@@ -396,31 +396,278 @@ section {
     align-items: center;
 }
 
-.hero-image {
-    width: 400px;
-    height: 480px;
-    border-radius: 30px;
-    overflow: hidden;
+/* ========================= Interactive Skill Network ========================= */
+.skill-network-container {
     position: relative;
+    width: 100%;
+    height: 480px;
+    background: transparent;
     z-index: 2;
-    border: 1px solid var(--glass-border);
-    transition: var(--transition);
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.hero-image img {
+.network-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    z-index: 1;
+    pointer-events: none;
 }
 
-.image-glow {
+.network-svg {
     position: absolute;
-    width: 120%;
-    height: 120%;
-    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-    z-index: 1;
-    filter: blur(40px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
 }
+
+.connection-line-bg {
+    stroke: rgba(56, 189, 248, 0.08);
+    stroke-width: 1.5px;
+}
+
+.connection-line-flow {
+    stroke: url(#line-gradient);
+    stroke-width: 1.5px;
+    stroke-dasharray: 6 35;
+    stroke-linecap: round;
+    animation: connection-flow 4s linear infinite;
+    opacity: 0.7;
+    transition: stroke-width 0.3s, opacity 0.3s;
+}
+
+.connection-line-flow.highlighted {
+    stroke-width: 2.5px;
+    opacity: 1;
+    animation-duration: 2s;
+}
+
+@keyframes connection-flow {
+    to {
+        stroke-dashoffset: -120;
+    }
+}
+
+.network-nodes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+
+.network-node {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 50%;
+    background: rgba(10, 14, 26, 0.55);
+    backdrop-filter: blur(12px) saturate(180%);
+    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.35), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+                box-shadow 0.4s ease, 
+                border-color 0.4s ease, 
+                opacity 0.4s ease;
+    transform-origin: center;
+}
+
+.network-node .node-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+}
+
+/* Central Node Styling */
+.network-node.central-node {
+    width: 105px;
+    height: 105px;
+    margin-left: -52.5px;
+    margin-top: -52.5px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    animation: pulse-glow 3s ease-in-out infinite;
+    z-index: 15;
+}
+
+.network-node.central-node i {
+    font-size: 3rem;
+    color: #3b82f6;
+    margin-bottom: 0.4rem;
+}
+
+.network-node.central-node span {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        border-color: rgba(59, 130, 246, 0.25);
+    }
+    50% {
+        box-shadow: 0 0 45px rgba(139, 92, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        border-color: rgba(139, 92, 246, 0.45);
+    }
+}
+
+/* Regular Skill Node Styling */
+.network-node.skill-node {
+    z-index: 10;
+}
+
+/* Base sizing classes dynamically placed by JS offset sizes */
+.network-node.expert-node {
+    width: 78px;
+    height: 78px;
+    margin-left: -39px;
+    margin-top: -39px;
+    border: 1.5px solid rgba(59, 130, 246, 0.25);
+}
+
+.network-node.intermediate-node {
+    width: 62px;
+    height: 62px;
+    margin-left: -31px;
+    margin-top: -31px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.network-node i {
+    font-size: 2.2rem;
+    color: var(--text-secondary);
+    transition: color 0.3s, transform 0.3s;
+}
+
+.network-node.expert-node i { font-size: 2.3rem; margin-bottom: 0.2rem; }
+.network-node.intermediate-node i { font-size: 1.8rem; margin-bottom: 0.1rem; }
+
+.network-node span {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    transition: color 0.3s;
+}
+.network-node.intermediate-node span { font-size: 0.8rem; }
+
+/* Interactive Hover States */
+.network-node:hover {
+    z-index: 50;
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 0 35px rgba(56, 189, 248, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.network-node:hover i {
+    color: #3b82f6;
+    transform: scale(1.1);
+}
+.network-node:hover span {
+    color: var(--text-primary);
+}
+
+.network-node.central-node:hover {
+    border-color: rgba(139, 92, 246, 0.6);
+    box-shadow: 0 0 45px rgba(139, 92, 246, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    animation: none;
+}
+.network-node.central-node:hover i {
+    color: #8b5cf6;
+}
+
+/* Fade unrelated nodes */
+.network-node.dimmed {
+    opacity: 0.5;
+    filter: blur(0px);
+}
+
+.network-node.highlighted {
+    opacity: 1;
+    filter: none;
+    border-color: rgba(56, 189, 248, 0.7);
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+/* ========================= Tooltip ========================= */
+.network-tooltip {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    background: rgba(10, 14, 26, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    padding: 0.8rem 1.2rem;
+    color: var(--text-primary);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    width: 140px;
+    text-align: center;
+    transition: opacity 300ms ease, transform 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.network-tooltip.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.tooltip-line-1 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #3b82f6;
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tooltip-line-2 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tooltip-line-3 {
+    font-size: 1.0rem;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Metric Counters styling removed for clean skill network layout focus */
 
 
 
@@ -1411,6 +1658,199 @@ section {
     transform: translateY(-5px);
 }
 
+/* ========================= Portfolio Appreciation System ========================= */
+.portfolio-appreciation {
+    width: 100%;
+    max-width: 480px;
+    margin: 2rem auto;
+    padding: 2.4rem 3rem;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.8rem;
+    border: 1px solid rgba(59, 130, 246, 0.15);
+    background: rgba(10, 14, 26, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+}
+
+.appreciation-stats {
+    display: flex;
+    align-items: center;
+    gap: 2.4rem;
+    width: 100%;
+    justify-content: center;
+}
+
+.appreciation-stat {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.appreciation-stat i {
+    font-size: 2rem;
+    color: var(--accent);
+}
+
+.appreciation-stat .bxs-heart {
+    color: #f43f5e;
+}
+
+.stat-count-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-count {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: var(--text-primary);
+    min-width: 28px;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+/* Skeleton loading pulse */
+.number-skeleton {
+    background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 75%);
+    background-size: 200% 100%;
+    animation: skeletonPulse 1.5s ease-in-out infinite;
+    border-radius: 4px;
+    color: transparent !important;
+}
+
+@keyframes skeletonPulse {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.appreciation-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Appreciation Button */
+.appreciation-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1rem 2.4rem;
+    border-radius: 12px;
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    background: rgba(59, 130, 246, 0.08);
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    font-weight: 600;
+    font-family: var(--font-body);
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: visible;
+}
+
+.appreciation-btn:hover {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.45);
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.15);
+    transform: translateY(-2px);
+}
+
+.appreciation-btn:hover .btn-icon {
+    transform: scale(1.15);
+}
+
+.appreciation-btn .btn-icon {
+    font-size: 1.6rem;
+    transition: transform 0.3s ease;
+    display: inline-block;
+}
+
+.appreciation-btn:active {
+    transform: scale(0.97);
+}
+
+.appreciation-btn.liked {
+    background: rgba(244, 63, 94, 0.1);
+    border-color: rgba(244, 63, 94, 0.3);
+    cursor: default;
+    pointer-events: none;
+}
+
+.appreciation-btn.liked .btn-icon {
+    animation: none;
+}
+
+/* Heart pop animation */
+@keyframes heartPop {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.35); }
+    70% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+.heart-pop .btn-icon {
+    animation: heartPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Floating mini hearts */
+.floating-heart {
+    position: absolute;
+    font-size: 1.6rem;
+    pointer-events: none;
+    z-index: 10;
+    animation: floatHeart 1s ease-out forwards;
+}
+
+@keyframes floatHeart {
+    0% {
+        opacity: 1;
+        transform: translateY(0) scale(1) rotate(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0.5) rotate(var(--rotate, 15deg));
+    }
+}
+
+/* Appreciation Message */
+.appreciation-message {
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.4s ease, max-height 0.4s ease;
+    text-align: center;
+}
+
+.appreciation-message.visible {
+    opacity: 1;
+    max-height: 40px;
+}
+
+/* Counter bump animation */
+@keyframes countBump {
+    0% { transform: scale(1); color: var(--text-primary); }
+    50% { transform: scale(1.25); color: #f43f5e; }
+    100% { transform: scale(1); color: var(--text-primary); }
+}
+
+.count-bump {
+    animation: countBump 0.4s ease;
+}
+
 /* ========================= Responsive Design ========================= */
 @media (max-width: 1200px) {
     .hero-title {
@@ -1487,9 +1927,34 @@ section {
         font-size: 4.5rem;
     }
 
-    .hero-image {
-        width: 300px;
+    .skill-network-container {
         height: 380px;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+    
+    .network-tooltip {
+        width: 125px;
+        padding: 0.6rem 0.9rem;
+    }
+
+    .appreciation-stats {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+
+    .appreciation-divider {
+        width: 60px;
+        height: 1px;
+    }
+
+    .portfolio-appreciation {
+        padding: 2rem 2rem;
+        max-width: 320px;
+    }
+
+    .appreciation-btn {
+        width: 100%;
     }
 }
 

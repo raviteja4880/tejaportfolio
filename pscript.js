@@ -221,4 +221,635 @@ document.addEventListener('DOMContentLoaded', () => {
         const encodedMessage = encodeURIComponent(message);
         whatsappLink.href = `https://wa.me/918885674269?text=${encodedMessage}`;
     }
+
+    // ----------------------------------------------------
+    // Skill Network Visualization
+    // ----------------------------------------------------
+    const container = document.getElementById('skill-network-container');
+    const nodesContainer = document.getElementById('network-nodes');
+    const svg = document.getElementById('network-svg');
+    const tooltip = document.getElementById('network-tooltip');
+    
+    if (container && nodesContainer && svg && tooltip) {
+        const nodes = Array.from(document.querySelectorAll('.network-node'));
+        const particlesCanvas = document.getElementById('network-particles');
+        const ctx = particlesCanvas ? particlesCanvas.getContext('2d') : null;
+        
+        let width = container.clientWidth;
+        let height = container.clientHeight;
+        
+        // Handle resizing
+        const resize = () => {
+            width = container.clientWidth;
+            height = container.clientHeight;
+            if (particlesCanvas) {
+                particlesCanvas.width = width;
+                particlesCanvas.height = height;
+            }
+        };
+        resize();
+        window.addEventListener('resize', resize);
+        
+        // Orbit and sizing setup
+        const isMobile = () => window.innerWidth < 768;
+        
+        // Define base configurations (Python removed)
+        const innerSkills = ['react', 'nodejs', 'mongodb', 'redis', 'aws'];
+        const outerSkills = ['fastapi', 'ai-rag', 'pinecone', 'docker', 'git'];
+        
+        // Spotlight sequence info map (3 lines max per item)
+        const spotlightInfo = {
+            react: { line1: "React", line2: "Frontend", line3: "All Projects" },
+            nodejs: { line1: "Node.js", line2: "Backend", line3: "RAG Premium" },
+            mongodb: { line1: "MongoDB", line2: "Database", line3: "All Projects" },
+            redis: { line1: "Redis", line2: "Caching", line3: "40% Faster" },
+            aws: { line1: "AWS", line2: "Cloud", line3: "Production" },
+            fastapi: { line1: "FastAPI", line2: "APIs", line3: "RAG Premium" },
+            "ai-rag": { line1: "AI / RAG", line2: "Dual-LLM", line3: "AI Agents" },
+            pinecone: { line1: "Pinecone", line2: "Vector DB", line3: "RAG Premium" },
+            git: { line1: "Git", line2: "DevOps", line3: "All Projects" }
+        };
+        
+        // Set base structure for each node
+        const nodeStates = {};
+        
+        nodes.forEach(node => {
+            const id = node.getAttribute('data-id');
+            const isCentral = node.classList.contains('central-node');
+            const isExpert = node.classList.contains('expert-node');
+            
+            // Random float parameters based on node expertise/importance
+            nodeStates[id] = {
+                element: node,
+                id: id,
+                isCentral: isCentral,
+                isExpert: isExpert,
+                baseX: 0,
+                baseY: 0,
+                x: 0,
+                y: 0,
+                // Floating wave properties
+                phaseX: Math.random() * Math.PI * 2,
+                phaseY: Math.random() * Math.PI * 2,
+                freqX: 0.0008 + Math.random() * 0.0008,
+                freqY: 0.0008 + Math.random() * 0.0008,
+                ampX: isCentral ? 3 : (isExpert ? 6 : 9),
+                ampY: isCentral ? 3 : (isExpert ? 6 : 9),
+                // Parallax depth multiplier (deeper intermediate nodes move more)
+                depth: isCentral ? 10 : (isExpert ? 18 : 26)
+            };
+        });
+        
+        // Parallax variables
+        let targetParallaxX = 0;
+        let targetParallaxY = 0;
+        let currentParallaxX = 0;
+        let currentParallaxY = 0;
+        
+        // Mouse move listener on hero section
+        const heroSection = document.getElementById('home');
+        if (heroSection) {
+            heroSection.addEventListener('mousemove', (e) => {
+                const rect = container.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left - rect.width / 2;
+                const mouseY = e.clientY - rect.top - rect.height / 2;
+                
+                targetParallaxX = mouseX / (rect.width / 2);
+                targetParallaxY = mouseY / (rect.height / 2);
+            });
+            
+            heroSection.addEventListener('mouseleave', () => {
+                targetParallaxX = 0;
+                targetParallaxY = 0;
+            });
+        }
+        
+        // Create connection elements in SVG
+        const connections = [];
+        
+        nodes.forEach(node => {
+            const id = node.getAttribute('data-id');
+            if (id !== 'mern') {
+                // Background line
+                const bgLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                bgLine.setAttribute('class', 'connection-line-bg');
+                svg.appendChild(bgLine);
+                
+                // Flow particle line
+                const flowLine = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                flowLine.setAttribute('class', 'connection-line-flow');
+                svg.appendChild(flowLine);
+                
+                connections.push({
+                    targetId: id,
+                    bgLine: bgLine,
+                    flowLine: flowLine
+                });
+            }
+        });
+        
+        // Highlight logic helpers
+        let hoveredNodeId = null;
+        let isUserInteracting = false;
+        
+        const showHighlight = (id) => {
+            hoveredNodeId = id;
+            
+            // Highlight path nodes & apply dim opacity to inactive nodes
+            nodes.forEach(n => {
+                const nId = n.getAttribute('data-id');
+                if (nId === id) {
+                    n.classList.remove('dimmed');
+                    n.classList.add('highlighted');
+                } else if (nId === 'mern') {
+                    // Central node remains fully visible
+                    n.classList.remove('dimmed');
+                    n.classList.remove('highlighted');
+                } else {
+                    n.classList.add('dimmed');
+                    n.classList.remove('highlighted');
+                }
+            });
+            
+            // Highlight paths connections
+            connections.forEach(conn => {
+                if (conn.targetId === id) {
+                    conn.flowLine.classList.add('highlighted');
+                } else {
+                    conn.flowLine.classList.remove('highlighted');
+                }
+            });
+            
+            // Streamlined 3-line tooltip details population
+            const info = spotlightInfo[id];
+            if (info) {
+                tooltip.querySelector('.tooltip-line-1').textContent = info.line1;
+                tooltip.querySelector('.tooltip-line-2').textContent = info.line2;
+                tooltip.querySelector('.tooltip-line-3').textContent = info.line3;
+            } else {
+                const node = nodeStates[id]?.element;
+                if (node) {
+                    tooltip.querySelector('.tooltip-line-1').textContent = node.getAttribute('data-name') || "";
+                    tooltip.querySelector('.tooltip-line-2').textContent = node.getAttribute('data-level') || "";
+                    const projectsStr = node.getAttribute('data-projects') || "";
+                    tooltip.querySelector('.tooltip-line-3').textContent = projectsStr.split(',')[0] || "Portfolio";
+                }
+            }
+            
+            // Show tooltip (initiates 300ms CSS fade-in)
+            tooltip.classList.add('active');
+        };
+        
+        const clearHighlight = () => {
+            hoveredNodeId = null;
+            nodes.forEach(n => {
+                n.classList.remove('dimmed');
+                n.classList.remove('highlighted');
+            });
+            
+            connections.forEach(conn => {
+                conn.flowLine.classList.remove('highlighted');
+            });
+            
+            tooltip.classList.remove('active');
+        };
+        
+        // Guided Tour Spotlight system: strict ordered sequence cycling every 1.9 seconds
+        const tourOrder = ['react', 'nodejs', 'mongodb', 'redis', 'aws', 'fastapi', 'ai-rag', 'pinecone', 'git'];
+        let tourIndex = 0;
+        let tourInterval = null;
+        let fadeOutTimeout = null;
+        let clearHighlightTimeout = null;
+        
+        const showTourStep = () => {
+            if (isUserInteracting) return;
+            
+            const id = tourOrder[tourIndex];
+            
+            // Step A: Highlight node and reveal tooltip (t=0ms)
+            showHighlight(id);
+            
+            // Step B: Initiate tooltip fade-out (t=1300ms - leaves it visible for 1000ms post-fade)
+            fadeOutTimeout = setTimeout(() => {
+                if (!isUserInteracting) {
+                    tooltip.classList.remove('active');
+                }
+            }, 1300);
+            
+            // Step C: Reset node highlights once tooltip fully fades out (t=1600ms - 300ms transition finishes)
+            clearHighlightTimeout = setTimeout(() => {
+                if (!isUserInteracting) {
+                    clearHighlight();
+                }
+            }, 1600);
+            
+            // Increment pointer for next 1.9s loop step
+            tourIndex = (tourIndex + 1) % tourOrder.length;
+        };
+        
+        const startTour = () => {
+            stopTour();
+            showTourStep(); // execute first step immediately
+            tourInterval = setInterval(showTourStep, 1900);
+        };
+        
+        const stopTour = () => {
+            clearInterval(tourInterval);
+            clearTimeout(fadeOutTimeout);
+            clearTimeout(clearHighlightTimeout);
+        };
+        
+        // Manual Hover Interaction Listeners
+        nodes.forEach(node => {
+            const id = node.getAttribute('data-id');
+            if (id === 'mern') return; // Central node is non-hover triggered for tour
+            
+            node.addEventListener('mouseenter', () => {
+                isUserInteracting = true;
+                stopTour();
+                showHighlight(id);
+            });
+            
+            node.addEventListener('mouseleave', () => {
+                isUserInteracting = false;
+                clearHighlight();
+                startTour();
+            });
+        });
+        
+        // Background particles
+        const stars = [];
+        const numStars = 15;
+        for (let i = 0; i < numStars; i++) {
+            stars.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                vx: (Math.random() - 0.5) * 0.15,
+                vy: (Math.random() - 0.5) * 0.15,
+                size: Math.random() * 2 + 1,
+                opacity: 0.15 + Math.random() * 0.2
+            });
+        }
+        
+        const updateParticles = () => {
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            stars.forEach(star => {
+                star.x += star.vx;
+                star.y += star.vy;
+                
+                if (star.x < 0) star.x = width;
+                if (star.x > width) star.x = 0;
+                if (star.y < 0) star.y = height;
+                if (star.y > height) star.y = 0;
+                
+                ctx.fillStyle = `rgba(59, 130, 246, ${star.opacity})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+        };
+        
+        // Main Animation Loop
+        const tick = () => {
+            const time = performance.now();
+            const mobile = isMobile();
+            
+            // Base layouts
+            const rInner = mobile ? 80 : 115;
+            const rOuter = mobile ? 135 : 195;
+            
+            // Base layouts coordinates relative to center
+            innerSkills.forEach((id, idx) => {
+                const theta = (idx * Math.PI * 2) / innerSkills.length + Math.PI / 5;
+                const state = nodeStates[id];
+                if (state) {
+                    state.baseX = Math.cos(theta) * rInner;
+                    state.baseY = Math.sin(theta) * rInner;
+                }
+            });
+            
+            outerSkills.forEach((id, idx) => {
+                const theta = (idx * Math.PI * 2) / outerSkills.length + Math.PI / 10;
+                const state = nodeStates[id];
+                if (state) {
+                    state.baseX = Math.cos(theta) * rOuter;
+                    state.baseY = Math.sin(theta) * rOuter;
+                }
+            });
+            
+            // Check prefers-reduced-motion
+            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            
+            // Lerp parallax
+            currentParallaxX += (targetParallaxX - currentParallaxX) * 0.08;
+            currentParallaxY += (targetParallaxY - currentParallaxY) * 0.08;
+            
+            // Update node positions
+            nodes.forEach(node => {
+                const id = node.getAttribute('data-id');
+                const state = nodeStates[id];
+                if (!state) return;
+                
+                // Floating wave physics
+                const floatX = reducedMotion ? 0 : Math.sin(time * state.freqX + state.phaseX) * state.ampX;
+                const floatY = reducedMotion ? 0 : Math.cos(time * state.freqY + state.phaseY) * state.ampY;
+                
+                // Parallax displacement
+                const paraX = reducedMotion ? 0 : currentParallaxX * state.depth;
+                const paraY = reducedMotion ? 0 : currentParallaxY * state.depth;
+                
+                state.x = state.baseX + floatX + paraX;
+                state.y = state.baseY + floatY + paraY;
+                
+                // Apply CSS translation
+                node.style.transform = `translate(${state.x}px, ${state.y}px)`;
+            });
+            
+            // Redraw SVG connection lines
+            const cx = width / 2;
+            const cy = height / 2;
+            const mState = nodeStates['mern'];
+            
+            if (mState) {
+                const mernX = cx + mState.x;
+                const mernY = cy + mState.y;
+                
+                connections.forEach(conn => {
+                    const targetState = nodeStates[conn.targetId];
+                    if (targetState) {
+                        const targetX = cx + targetState.x;
+                        const targetY = cy + targetState.y;
+                        
+                        // Background line coordinates
+                        conn.bgLine.setAttribute('x1', mernX);
+                        conn.bgLine.setAttribute('y1', mernY);
+                        conn.bgLine.setAttribute('x2', targetX);
+                        conn.bgLine.setAttribute('y2', targetY);
+                        
+                        // Flow line coordinates
+                        conn.flowLine.setAttribute('x1', mernX);
+                        conn.flowLine.setAttribute('y1', mernY);
+                        conn.flowLine.setAttribute('x2', targetX);
+                        conn.flowLine.setAttribute('y2', targetY);
+                    }
+                });
+                
+                // Position tooltip dynamically in outward radial directions + constrained viewport clamping
+                if (hoveredNodeId && hoveredNodeId !== 'mern') {
+                    const hState = nodeStates[hoveredNodeId];
+                    if (hState) {
+                        const hx = hState.x;
+                        const hy = hState.y;
+                        const dist = Math.sqrt(hx * hx + hy * hy);
+                        
+                        // Radial direction unit vector away from central node
+                        const ux = dist > 0 ? hx / dist : 0;
+                        const uy = dist > 0 ? hy / dist : -1;
+                        
+                        // Offset distance outside the node boundary
+                        const offsetDist = mobile ? 50 : 65;
+                        
+                        let tx = cx + hx + ux * offsetDist;
+                        let ty = cy + hy + uy * offsetDist;
+                        
+                        // Prevent covering central MERN node by enforcing a minimum distance
+                        const mernDist = Math.sqrt((tx - cx) * (tx - cx) + (ty - cy) * (ty - cy));
+                        if (mernDist < 85) {
+                            // Push radially further away
+                            tx = cx + ux * 85;
+                            ty = cy + uy * 85;
+                        }
+                        
+                        // Constrain tooltip inside container boundaries
+                        const marginWidth = mobile ? 65 : 80;
+                        const marginHeight = mobile ? 55 : 65;
+                        tx = Math.max(marginWidth, Math.min(width - marginWidth, tx));
+                        ty = Math.max(marginHeight, Math.min(height - marginHeight, ty));
+                        
+                        tooltip.style.left = `${tx}px`;
+                        tooltip.style.top = `${ty}px`;
+                    }
+                } else if (hoveredNodeId === 'mern') {
+                    // Tooltip sits directly above central node if central is spotlighted/hovered
+                    tooltip.style.left = `${cx + mState.x}px`;
+                    tooltip.style.top = `${cy + mState.y - 75}px`;
+                }
+            }
+            
+            // Background Canvas particles
+            if (!reducedMotion && !mobile) {
+                updateParticles();
+            }
+            
+            requestAnimationFrame(tick);
+        };
+        
+        requestAnimationFrame(tick);
+        
+        // Start automatic spotlight cycle guided tour
+        startTour();
+    }
+
+    // ----------------------------------------------------
+    // Portfolio Appreciation System (Supabase)
+    // ----------------------------------------------------
+    const appreciationBtn = document.getElementById('appreciation-btn');
+    const countVisitorsEl = document.getElementById('count-visitors');
+    const countLikesEl = document.getElementById('count-likes');
+    const appreciationMessage = document.getElementById('appreciation-message');
+
+    if (appreciationBtn && countVisitorsEl && countLikesEl) {
+
+        // --- Supabase REST API config (loaded from config.js) ---
+        const SUPABASE_URL = (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_URL) || '';
+        const SUPABASE_KEY = (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_ANON_KEY) || '';
+        const TABLE = 'portfolio_stats';
+        const ROW_ID = 1;
+
+        const supabaseHeaders = {
+            'apikey': SUPABASE_KEY,
+            'Authorization': `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=representation'
+        };
+
+        // --- Supabase helpers ---
+        const fetchStats = async () => {
+            try {
+                const res = await fetch(
+                    `${SUPABASE_URL}/rest/v1/${TABLE}?select=visitors,likes&id=eq.${ROW_ID}`,
+                    { headers: supabaseHeaders }
+                );
+                if (!res.ok) throw new Error(`Supabase GET ${res.status}`);
+                const rows = await res.json();
+                return rows[0] || { visitors: 0, likes: 0 };
+            } catch (err) {
+                console.warn('[Appreciation] Failed to fetch stats:', err.message);
+                return { visitors: 0, likes: 0 };
+            }
+        };
+
+        const updateField = async (field, newValue) => {
+            try {
+                const body = {};
+                body[field] = newValue;
+                const res = await fetch(
+                    `${SUPABASE_URL}/rest/v1/${TABLE}?id=eq.${ROW_ID}`,
+                    {
+                        method: 'PATCH',
+                        headers: supabaseHeaders,
+                        body: JSON.stringify(body)
+                    }
+                );
+                if (!res.ok) throw new Error(`Supabase PATCH ${res.status}`);
+                const rows = await res.json();
+                return rows[0] || null;
+            } catch (err) {
+                console.warn(`[Appreciation] Failed to update ${field}:`, err.message);
+                return null;
+            }
+        };
+
+        // --- Format number with commas ---
+        const formatNumber = (n) => {
+            return Number(n).toLocaleString('en-US');
+        };
+
+        // --- Count-up animation ---
+        const animateCountUp = (el, target) => {
+            el.classList.remove('number-skeleton');
+            const duration = 1200;
+            const start = performance.now();
+            const from = 0;
+            const to = Number(target);
+
+            const step = (now) => {
+                const elapsed = now - start;
+                const progress = Math.min(elapsed / duration, 1);
+                // Ease-out cubic
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const current = Math.round(from + (to - from) * eased);
+                el.textContent = formatNumber(current);
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                }
+            };
+            requestAnimationFrame(step);
+        };
+
+        // --- Remove skeleton and show number (instant, no animation) ---
+        const revealCount = (el, count) => {
+            el.classList.remove('number-skeleton');
+            el.textContent = formatNumber(count);
+        };
+
+        // --- Animate count bump ---
+        const bumpCount = (el) => {
+            el.classList.remove('count-bump');
+            void el.offsetWidth; // force reflow
+            el.classList.add('count-bump');
+            el.addEventListener('animationend', () => {
+                el.classList.remove('count-bump');
+            }, { once: true });
+        };
+
+        // --- Floating mini hearts ---
+        const spawnFloatingHearts = () => {
+            const container = document.querySelector('.portfolio-appreciation');
+            if (!container) return;
+
+            for (let i = 0; i < 6; i++) {
+                const heart = document.createElement('span');
+                heart.className = 'floating-heart';
+                heart.textContent = '❤️';
+                heart.style.left = `${40 + Math.random() * 20}%`;
+                heart.style.top = '50%';
+                heart.style.setProperty('--rotate', `${-30 + Math.random() * 60}deg`);
+                heart.style.animationDelay = `${i * 0.08}s`;
+                container.appendChild(heart);
+
+                setTimeout(() => {
+                    heart.remove();
+                }, 1200);
+            }
+        };
+
+        // --- Check localStorage for liked state ---
+        const hasLiked = localStorage.getItem('portfolio_liked') === 'true';
+
+        if (hasLiked) {
+            appreciationBtn.classList.add('liked');
+            appreciationBtn.querySelector('.btn-icon').textContent = '❤️';
+            appreciationBtn.querySelector('.btn-text').textContent = 'Thanks for the appreciation!';
+        }
+
+        // --- Load stats on page load (lazy, non-blocking) ---
+        const loadStats = async () => {
+            const stats = await fetchStats();
+            const alreadyVisited = localStorage.getItem('portfolio_visited') === 'true';
+
+            let visitors = stats.visitors || 0;
+            let likes = stats.likes || 0;
+
+            // Increment visitors if this is the first visit ever from this browser
+            if (!alreadyVisited) {
+                visitors += 1;
+                const result = await updateField('visitors', visitors);
+                if (result) {
+                    localStorage.setItem('portfolio_visited', 'true');
+                }
+            }
+
+            // Animate count-up from 0 to actual values
+            animateCountUp(countVisitorsEl, visitors);
+            animateCountUp(countLikesEl, likes);
+        };
+
+        // Fire stats load without blocking render
+        loadStats();
+
+        // --- Like button click handler ---
+        appreciationBtn.addEventListener('click', async () => {
+            if (hasLiked || appreciationBtn.classList.contains('liked')) return;
+
+            // Analytics events
+            console.log('[Analytics] Like Button Clicked');
+            console.log('[Analytics] Portfolio Liked');
+
+            // Optimistic UI update
+            const currentLikes = parseInt(countLikesEl.textContent.replace(/,/g, '')) || 0;
+            revealCount(countLikesEl, currentLikes + 1);
+            bumpCount(countLikesEl);
+
+            // Heart pop animation
+            appreciationBtn.classList.add('heart-pop');
+            appreciationBtn.querySelector('.btn-icon').textContent = '❤️';
+            appreciationBtn.addEventListener('animationend', () => {
+                appreciationBtn.classList.remove('heart-pop');
+            }, { once: true });
+
+            // Spawn floating hearts
+            spawnFloatingHearts();
+
+            // Update button to liked state
+            setTimeout(() => {
+                appreciationBtn.querySelector('.btn-text').textContent = 'Thanks for the appreciation!';
+                appreciationBtn.classList.add('liked');
+            }, 600);
+
+            // Show appreciation message
+            if (appreciationMessage) {
+                setTimeout(() => {
+                    appreciationMessage.classList.add('visible');
+                }, 800);
+            }
+
+            // Persist liked state locally
+            localStorage.setItem('portfolio_liked', 'true');
+
+            // Send increment to Supabase
+            await updateField('likes', currentLikes + 1);
+        });
+    }
 });
