@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, observerOptions);
 
     // Apply reveal animation to elements
-    const revealElements = document.querySelectorAll('.skill-category, .project-card, .timeline-item, .contact-info, .contact-form, .hero-content, .hero-image-container');
+    const revealElements = document.querySelectorAll('.skill-category, .project-card, .timeline-item, .contact-info, .contact-form, .hero-content, .hero-image-container, .cloud-card');
     
     // Set initial state
     revealElements.forEach(el => {
@@ -119,15 +119,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 50);
         });
 
-        document.querySelectorAll('a, button, .btn, .clickable, .menu-icon, input, textarea, select').forEach(el => {
-            el.addEventListener('mouseenter', () => {
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, .btn, .clickable, .menu-icon, input, textarea, select, .cloud-cert-preview, .cert-modal-btn, .cert-modal-backdrop')) {
                 cursor.classList.add('active');
                 follower.classList.add('active');
-            });
-            el.addEventListener('mouseleave', () => {
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, .btn, .clickable, .menu-icon, input, textarea, select, .cloud-cert-preview, .cert-modal-btn, .cert-modal-backdrop')) {
                 cursor.classList.remove('active');
                 follower.classList.remove('active');
-            });
+            }
         });
     }
 
@@ -255,18 +258,19 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Define base configurations (Python removed)
         const innerSkills = ['react', 'nodejs', 'mongodb', 'redis', 'aws'];
-        const outerSkills = ['fastapi', 'ai-rag', 'pinecone', 'docker', 'git'];
+        const outerSkills = ['fastapi', 'ai-rag', 'pinecone', 'azure', 'git'];
         
         // Spotlight sequence info map (3 lines max per item)
         const spotlightInfo = {
             react: { line1: "React", line2: "Frontend", line3: "All Projects" },
-            nodejs: { line1: "Node.js", line2: "Backend", line3: "RAG Premium" },
+            nodejs: { line1: "Node.js", line2: "Backend", line3: "All Projects" },
             mongodb: { line1: "MongoDB", line2: "Database", line3: "All Projects" },
-            redis: { line1: "Redis", line2: "Caching", line3: "40% Faster" },
-            aws: { line1: "AWS", line2: "Cloud", line3: "Production" },
-            fastapi: { line1: "FastAPI", line2: "APIs", line3: "RAG Premium" },
-            "ai-rag": { line1: "AI / RAG", line2: "Dual-LLM", line3: "AI Agents" },
+            redis: { line1: "Redis", line2: "Caching", line3: "Ecommerce & RAG" },
+            aws: { line1: "AWS", line2: "Cloud", line3: "Ecommerce & QuizApp" },
+            fastapi: { line1: "FastAPI", line2: "APIs", line3: "RAG & SmartLink" },
+            "ai-rag": { line1: "AI / RAG", line2: "Dual-LLM", line3: "SmartLink AI" },
             pinecone: { line1: "Pinecone", line2: "Vector DB", line3: "RAG Premium" },
+            azure: { line1: "Azure", line2: "Cloud", line3: "SmartLink AI" },
             git: { line1: "Git", line2: "DevOps", line3: "All Projects" }
         };
         
@@ -415,7 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         
         // Guided Tour Spotlight system: strict ordered sequence cycling every 1.9 seconds
-        const tourOrder = ['react', 'nodejs', 'mongodb', 'redis', 'aws', 'fastapi', 'ai-rag', 'pinecone', 'git'];
+        const tourOrder = ['react', 'nodejs', 'mongodb', 'redis', 'aws', 'azure', 'fastapi', 'ai-rag', 'pinecone', 'git'];
         let tourIndex = 0;
         let tourInterval = null;
         let fadeOutTimeout = null;
@@ -845,11 +849,111 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 800);
             }
 
-            // Persist liked state locally
-            localStorage.setItem('portfolio_liked', 'true');
-
             // Send increment to Supabase
             await updateField('likes', currentLikes + 1);
+        });
+    }
+
+    // ----------------------------------------------------
+    // 8.5 Credential Details Mobile Accordion
+    // ----------------------------------------------------
+    const credentialToggles = document.querySelectorAll('.credential-toggle');
+    credentialToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+            // Only toggle collapsible accordion on mobile (<= 768px)
+            if (window.innerWidth <= 768) {
+                const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+                const contentId = toggle.getAttribute('aria-controls');
+                const content = document.getElementById(contentId);
+                
+                toggle.setAttribute('aria-expanded', String(!isExpanded));
+                if (content) {
+                    content.classList.toggle('active', !isExpanded);
+                }
+            }
+        });
+    });
+
+    // ----------------------------------------------------
+    // 9. Certificate Lightbox Modal System
+    // ----------------------------------------------------
+    const certModal = document.getElementById('cert-modal');
+    const modalBackdrop = document.getElementById('cert-modal-backdrop');
+    const modalCloseBtn = document.getElementById('modal-cert-close');
+    const modalImg = document.getElementById('modal-cert-img');
+    const modalTitle = document.getElementById('modal-cert-title');
+    const modalDownload = document.getElementById('modal-cert-download');
+    const modalVerify = document.getElementById('modal-cert-verify');
+
+    if (certModal && modalImg && modalTitle) {
+        const openModal = (src, title, verifyUrl) => {
+            modalImg.src = src;
+            modalImg.alt = title || 'Certificate Full Preview';
+            modalTitle.textContent = title || 'Certificate Preview';
+            if (modalDownload) {
+                modalDownload.href = src;
+            }
+            if (modalVerify) {
+                if (verifyUrl) {
+                    modalVerify.href = verifyUrl;
+                    modalVerify.classList.remove('hidden');
+                } else {
+                    modalVerify.classList.add('hidden');
+                }
+            }
+            certModal.classList.add('active');
+            certModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        };
+
+        const closeModal = () => {
+            certModal.classList.remove('active');
+            certModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                modalImg.src = '';
+            }, 350);
+        };
+
+        // Attach to all view certificate triggers and previews
+        const certTriggers = document.querySelectorAll('.btn-view-cert, .cloud-cert-preview, .cert-card img');
+        certTriggers.forEach(trigger => {
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                const src = trigger.getAttribute('data-cert-src') || trigger.getAttribute('src');
+                const title = trigger.getAttribute('data-cert-title') ||
+                    trigger.closest('.cloud-card')?.querySelector('h3')?.textContent ||
+                    trigger.closest('.cert-card')?.querySelector('h4')?.textContent ||
+                    'Certificate Preview';
+                const verifyUrl = trigger.getAttribute('data-verify-url') ||
+                    trigger.closest('.cloud-card')?.querySelector('[data-verify-url]')?.getAttribute('data-verify-url') ||
+                    trigger.closest('.cloud-card')?.querySelector('.credential-link[href^="http"]')?.getAttribute('href') ||
+                    trigger.closest('.cloud-card')?.querySelector('.detail-link[href^="http"]')?.getAttribute('href') ||
+                    null;
+                if (src) {
+                    openModal(src, title, verifyUrl);
+                }
+            });
+
+            // Keyboard accessibility for preview element
+            if (trigger.classList.contains('cloud-cert-preview')) {
+                trigger.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        trigger.click();
+                    }
+                });
+            }
+        });
+
+        // Close events
+        if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+        if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && certModal.classList.contains('active')) {
+                closeModal();
+            }
         });
     }
 });

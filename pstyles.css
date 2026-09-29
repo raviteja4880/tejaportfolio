@@ -48,7 +48,7 @@
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9999;
+    z-index: 9999999;
     transform: translate(-50%, -50%);
     transition: transform 0.2s ease, width 0.3s, height 0.3s, background-color 0.3s;
 }
@@ -64,7 +64,7 @@
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
-    z-index: 9998;
+    z-index: 9999998;
     transform: translate(-50%, -50%);
     transition: transform 0.15s ease-out, background-color 0.3s;
 }
@@ -1201,275 +1201,837 @@ section {
     font-weight: 700;
 }
 
-/* ========================= Featured Certifications Spotlight ========================= */
-.featured-certs {
+/* Section Subtitle */
+.section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.6rem;
+    max-width: 650px;
+    margin: 1.5rem auto 0;
+    line-height: 1.6;
+}
+
+/* ========================= Featured Cloud Credentials Area ========================= */
+.cloud-creds-container {
     max-width: 1200px;
     margin: 0 auto 7rem;
+}
+
+.cloud-creds-bar {
     display: flex;
-    flex-direction: column;
-    gap: 2.5rem;
-}
-
-.featured-label {
-    display: inline-flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 0.8rem;
-    padding: 0.6rem 1.6rem;
-    background: rgba(34, 211, 238, 0.1);
-    border: 1px solid rgba(34, 211, 238, 0.3);
-    border-radius: 50px;
-    color: var(--accent);
-    font-size: 1.3rem;
-    font-weight: 700;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    width: fit-content;
-}
-
-.featured-label i {
-    font-size: 1.6rem;
-}
-
-/* ---- Featured Card Base ---- */
-.featured-cert-card {
-    position: relative;
-    border-radius: 28px;
-    padding: 3.5rem 4rem;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    overflow: hidden;
-    border: 1px solid transparent;
-    transition: var(--transition);
-}
-
-.featured-cert-card:hover {
-    transform: translateY(-6px);
-}
-
-/* ---- Azure Card ---- */
-.featured-azure {
-    background: linear-gradient(135deg,
-        rgba(15, 23, 42, 0.9) 0%,
-        rgba(99, 102, 241, 0.08) 100%);
-    border-color: rgba(99, 102, 241, 0.25);
-    box-shadow: 0 0 60px rgba(99, 102, 241, 0.06);
-}
-
-.featured-azure:hover {
-    border-color: rgba(99, 102, 241, 0.5);
-    box-shadow: 0 20px 60px rgba(99, 102, 241, 0.15);
-}
-
-/* ---- Glow blobs ---- */
-.featured-cert-glow {
-    position: absolute;
-    top: -40px;
-    left: -40px;
-    width: 280px;
-    height: 280px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(34, 211, 238, 0.18) 0%, transparent 70%);
-    pointer-events: none;
-    filter: blur(30px);
-    animation: glow-pulse 4s ease-in-out infinite;
-}
-
-.azure-glow {
-    background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
-    animation-delay: 2s;
-}
-
-@keyframes glow-pulse {
-    0%, 100% { opacity: 0.7; transform: scale(1); }
-    50%       { opacity: 1;   transform: scale(1.15); }
-}
-
-/* ---- Badge ---- */
-.featured-cert-badge {
-    position: absolute;
-    top: 2.2rem;
-    right: 2.2rem;
-    padding: 0.5rem 1.4rem;
-    border-radius: 50px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    z-index: 2;
-    overflow: hidden;
-}
-
-.featured-cert-badge.upcoming {
-    background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.2));
-    border: 1px solid rgba(99, 102, 241, 0.5);
-    color: #a78bfa;
-    animation: shimmer-badge-azure 3s ease-in-out infinite;
-}
-
-@keyframes shimmer-badge-azure {
-    0%, 100% { box-shadow: 0 0 8px rgba(99, 102, 241, 0.3); }
-    50%       { box-shadow: 0 0 20px rgba(99, 102, 241, 0.7); }
-}
-
-/* ---- Left side: icon + body ---- */
-.featured-cert-icon {
-    width: 70px;
-    height: 70px;
-    border-radius: 20px;
-    background: rgba(34, 211, 238, 0.1);
-    border: 1px solid rgba(34, 211, 238, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.featured-cert-icon i {
-    font-size: 3.6rem;
-    color: var(--accent);
-}
-
-.azure-icon {
-    background: rgba(99, 102, 241, 0.1);
-    border-color: rgba(99, 102, 241, 0.3);
-}
-
-.azure-icon i {
-    color: #818cf8;
-}
-
-.featured-cert-body h3 {
-    font-family: var(--font-heading);
-    font-size: 2.8rem;
-    font-weight: 800;
-    margin-bottom: 1rem;
-    background: linear-gradient(90deg, var(--accent), #38bdf8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.featured-azure .featured-cert-body h3 {
-    background: linear-gradient(90deg, #818cf8, #a78bfa);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.featured-cert-body p {
-    font-size: 1.6rem;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
-    line-height: 1.7;
-}
-
-.featured-cert-meta {
-    display: flex;
-    gap: 2rem;
+    margin-bottom: 2.8rem;
     flex-wrap: wrap;
-}
-
-.featured-cert-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-    color: var(--accent);
-    padding: 0.5rem 1.2rem;
-    background: rgba(34, 211, 238, 0.08);
-    border: 1px solid rgba(34, 211, 238, 0.2);
-    border-radius: 8px;
-}
-
-.featured-azure .featured-cert-meta span {
-    color: #818cf8;
-    background: rgba(99, 102, 241, 0.08);
-    border-color: rgba(99, 102, 241, 0.2);
-}
-
-.featured-cert-meta i {
-    font-size: 1.5rem;
-}
-
-/* ---- Right side: image OR progress ---- */
-.featured-cert-img-wrap {
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid rgba(34, 211, 238, 0.2);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-    position: relative;
-    z-index: 1;
-}
-
-.featured-cert-img-wrap img {
-    width: 100%;
-    height: 220px;
-    object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
-}
-
-.featured-cert-card:hover .featured-cert-img-wrap img {
-    transform: scale(1.04);
-}
-
-/* Progress bar (Azure card) */
-.featured-cert-progress {
-    position: relative;
-    z-index: 1;
-    padding: 3rem;
-    background: rgba(99, 102, 241, 0.05);
-    border: 1px solid rgba(99, 102, 241, 0.15);
-    border-radius: 20px;
-    display: flex;
-    flex-direction: column;
     gap: 1.5rem;
 }
 
-.progress-label {
+.cloud-creds-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.65rem 1.6rem;
+    background: rgba(34, 211, 238, 0.08);
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    border-radius: 50px;
+    color: var(--accent);
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+}
+
+.cloud-creds-pill i {
+    font-size: 1.6rem;
+}
+
+.cloud-creds-quote {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--text-muted);
+    font-size: 1.35rem;
+    font-style: italic;
+    font-weight: 500;
+}
+
+.cloud-creds-quote i {
+    color: var(--accent);
+    font-size: 1.6rem;
+}
+
+/* ---- Cloud Grid ---- */
+.cloud-creds-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+}
+
+/* ---- Cloud Card Base ---- */
+.cloud-card {
+    position: relative;
+    border-radius: 24px;
+    padding: 3.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: var(--transition);
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+}
+
+.cloud-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+/* Theme variants */
+.azure-card {
+    border-color: rgba(56, 189, 248, 0.22);
+}
+
+.azure-card:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 20px 60px rgba(14, 165, 233, 0.14);
+}
+
+.aws-card {
+    border-color: rgba(255, 153, 0, 0.22);
+}
+
+.aws-card:hover {
+    border-color: rgba(255, 153, 0, 0.5);
+    box-shadow: 0 20px 60px rgba(255, 153, 0, 0.14);
+}
+
+/* Glow blooms */
+.cloud-card-glow {
+    position: absolute;
+    top: -50px;
+    left: -50px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(45px);
+    opacity: 0.55;
+    transition: opacity 0.4s ease;
+}
+
+.cloud-card:hover .cloud-card-glow {
+    opacity: 0.9;
+}
+
+.azure-glow {
+    background: radial-gradient(circle, rgba(14, 165, 233, 0.25) 0%, transparent 70%);
+}
+
+.aws-glow {
+    background: radial-gradient(circle, rgba(255, 153, 0, 0.25) 0%, transparent 70%);
+}
+
+/* Card Header */
+.cloud-card-header {
     display: flex;
     justify-content: space-between;
-    font-size: 1.4rem;
+    align-items: flex-start;
+    gap: 1.5rem;
+    margin-bottom: 1.4rem;
+    position: relative;
+    z-index: 1;
+}
+
+.cloud-card-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.cloud-logo-box {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    flex-shrink: 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.azure-logo {
+    border-color: rgba(0, 164, 239, 0.3);
+    background: rgba(0, 164, 239, 0.08);
+}
+
+.aws-logo {
+    border-color: rgba(255, 153, 0, 0.3);
+    background: rgba(255, 153, 0, 0.08);
+}
+
+.cloud-title-wrap {
+    min-width: 0;
+}
+
+.cloud-title-wrap h3 {
+    font-family: var(--font-heading);
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.2px;
+}
+
+.cloud-code {
+    font-size: 1.3rem;
     font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.5px;
+    display: inline-block;
+}
+
+.aws-card .cloud-code {
+    color: #ffb74d;
+}
+
+/* Badge Certified */
+.cloud-badge-certified {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.45rem 1.2rem;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #34d399;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    box-shadow: 0 0 14px rgba(16, 185, 129, 0.15);
+}
+
+.cloud-badge-certified i {
+    font-size: 1.5rem;
+}
+
+.cloud-card-desc {
+    font-size: 1.45rem;
     color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    position: relative;
+    z-index: 1;
 }
 
-.progress-bar {
-    height: 10px;
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: 999px;
+/* Certificate Preview Container */
+.cloud-cert-preview {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    border-radius: 14px;
     overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: #090e1a;
+    margin-bottom: 2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.8rem;
+    box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
-.progress-fill {
-    height: 100%;
-    border-radius: 999px;
-    animation: fill-progress 1.8s ease-out forwards;
-    width: 0%;
+.cloud-cert-preview:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
-.azure-fill {
-    background: linear-gradient(90deg, #6366f1, #a78bfa);
-    box-shadow: 0 0 12px rgba(99, 102, 241, 0.6);
+/* Card-specific preview styling to blend certificate backgrounds seamlessly */
+.azure-card .cloud-cert-preview {
+    background: #0b1220;
+    border-color: rgba(56, 189, 248, 0.22);
 }
 
-@keyframes fill-progress {
-    from { width: 0%; }
-    to   { width: 85%; }
+.azure-card .cloud-cert-preview:hover {
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: 0 10px 30px rgba(14, 165, 233, 0.15), inset 0 0 25px rgba(0, 0, 0, 0.5);
 }
 
-/* Responsive – stack cards on small screens */
+.azure-card .cloud-cert-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.aws-card .cloud-cert-preview {
+    background: #192333;
+    border-color: rgba(255, 153, 0, 0.22);
+}
+
+.aws-card .cloud-cert-preview:hover {
+    border-color: rgba(255, 153, 0, 0.5);
+    box-shadow: 0 10px 30px rgba(255, 153, 0, 0.15), inset 0 0 25px rgba(0, 0, 0, 0.5);
+}
+
+.aws-card .cloud-cert-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.cloud-cert-preview:hover img {
+    transform: scale(1.025);
+}
+
+.preview-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    opacity: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.cloud-cert-preview:hover .preview-overlay,
+.cloud-cert-preview:focus .preview-overlay {
+    opacity: 1;
+}
+
+.preview-hint {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.8rem 1.6rem;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid var(--accent);
+    border-radius: 30px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.aws-card .preview-hint {
+    border-color: #ff9900;
+}
+
+/* =======================================================
+   Credential Details & Card Actions Layout
+   ======================================================= */
+
+/* Primary Action Button */
+.cloud-card-actions {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+.btn-view-cert {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    width: 100%;
+    padding: 1.25rem 2rem;
+    border-radius: 12px;
+    font-size: 1.45rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+    background: rgba(34, 211, 238, 0.1);
+    border: 1px solid rgba(34, 211, 238, 0.4);
+    cursor: pointer;
+    transition: var(--transition);
+    letter-spacing: 0.3px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.azure-card .btn-view-cert:hover,
+.azure-card .btn-view-cert:focus-visible {
+    background: rgba(56, 189, 248, 0.22);
+    border-color: #38bdf8;
+    box-shadow: 0 0 25px rgba(56, 189, 248, 0.3);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+.aws-card .btn-view-cert {
+    background: rgba(255, 153, 0, 0.1);
+    border-color: rgba(255, 153, 0, 0.4);
+    color: #f8fafc;
+}
+
+.aws-card .btn-view-cert:hover,
+.aws-card .btn-view-cert:focus-visible {
+    background: rgba(255, 153, 0, 0.22);
+    border-color: #ff9900;
+    box-shadow: 0 0 25px rgba(255, 153, 0, 0.3);
+    transform: translateY(-2px);
+    outline: none;
+}
+
+/* Credential Details Section Base */
+.credential-details-section {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.credential-toggle {
+    width: 100%;
+    background: transparent;
+    border: none;
+    text-align: left;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.credential-heading {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--text-primary);
+}
+
+.azure-card .credential-heading {
+    color: #e0f2fe;
+}
+
+.aws-card .credential-heading {
+    color: #ffedd5;
+}
+
+.credential-toggle .toggle-icon {
+    font-size: 1.8rem;
+    color: var(--text-secondary);
+    transition: transform 0.35s ease;
+}
+
+.credential-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.85rem 1.2rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    font-size: 1.25rem;
+    gap: 1.2rem;
+}
+
+.credential-label {
+    color: var(--text-muted);
+    font-weight: 500;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.credential-value {
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
+    word-break: break-all;
+}
+
+.credential-value.font-mono {
+    font-family: 'SF Mono', 'Fira Code', 'Roboto Mono', 'Cascadia Code', monospace;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    color: #e2e8f0;
+}
+
+.credential-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--accent);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    text-align: right;
+}
+
+.credential-link:hover,
+.credential-link:focus-visible {
+    color: #67e8f9;
+    text-decoration: underline;
+    outline: none;
+}
+
+.aws-card .credential-link {
+    color: #ffb74d;
+}
+
+.aws-card .credential-link:hover,
+.aws-card .credential-link:focus-visible {
+    color: #ffd599;
+}
+
+/* =======================================================
+   Desktop & Tablet Layout (min-width: 769px): ALWAYS EXPANDED
+   ======================================================= */
+@media (min-width: 769px) {
+    .cloud-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+
+    .cloud-card-header {
+        order: 1;
+    }
+
+    .cloud-card-desc {
+        order: 2;
+    }
+
+    .cloud-cert-preview {
+        order: 3;
+        height: 220px;
+        margin-bottom: 2rem;
+    }
+
+    .credential-details-section {
+        order: 4;
+        margin-bottom: 2.4rem;
+    }
+
+    /* Remove interactive toggle styles on desktop/tablet */
+    .credential-toggle {
+        display: block;
+        padding: 0;
+        margin-bottom: 1.2rem;
+        cursor: default;
+        pointer-events: none;
+    }
+
+    .credential-toggle .toggle-icon {
+        display: none !important;
+    }
+
+    /* Details are permanently visible on desktop/tablet */
+    .credential-content {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    .credential-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+
+    /* Action button at bottom of card */
+    .cloud-card-actions {
+        order: 5;
+        margin-top: auto;
+    }
+}
+
+/* =======================================================
+   Mobile Layout (max-width: 768px): COLLAPSIBLE ACCORDION
+   ======================================================= */
 @media (max-width: 768px) {
-    .featured-cert-card {
-        grid-template-columns: 1fr;
-        padding: 3rem 2.5rem;
+    .cloud-card {
+        display: flex;
+        flex-direction: column;
+        padding: 2.4rem 1.8rem;
     }
 
-    .featured-cert-card {
-        gap: 2.5rem;
+    .cloud-card-header {
+        order: 1;
     }
+
+    .cloud-card-desc {
+        order: 2;
+    }
+
+    .cloud-cert-preview {
+        order: 3;
+        height: 200px;
+        margin-bottom: 1.6rem;
+    }
+
+    /* On mobile, View Certificate button comes directly after preview */
+    .cloud-card-actions {
+        order: 4;
+        margin-top: 0;
+        margin-bottom: 1.6rem;
+    }
+
+    /* Credential details accordion comes after the button */
+    .credential-details-section {
+        order: 5;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        padding-top: 0.4rem;
+    }
+
+    .credential-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1.1rem 0.4rem;
+        min-height: 44px;
+        cursor: pointer;
+        pointer-events: auto;
+        color: var(--text-secondary);
+        transition: var(--transition);
+        border-radius: 8px;
+    }
+
+    .credential-toggle:hover,
+    .credential-toggle:focus-visible {
+        color: var(--accent);
+        outline: none;
+    }
+
+    .azure-card .credential-toggle:hover,
+    .azure-card .credential-toggle:focus-visible {
+        color: #38bdf8;
+    }
+
+    .aws-card .credential-toggle:hover,
+    .aws-card .credential-toggle:focus-visible {
+        color: #ffb74d;
+    }
+
+    .credential-heading {
+        font-size: 1.35rem;
+        font-weight: 600;
+        text-transform: none;
+        letter-spacing: 0.2px;
+        color: inherit;
+    }
+
+    .credential-toggle .toggle-icon {
+        display: inline-block !important;
+    }
+
+    .credential-toggle[aria-expanded="true"] .toggle-icon {
+        transform: rotate(180deg);
+    }
+
+    .credential-toggle[aria-expanded="true"] {
+        color: var(--text-primary);
+    }
+
+    .credential-content {
+        display: grid;
+        grid-template-rows: 0fr;
+        transition: grid-template-rows 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease;
+        opacity: 0;
+        overflow: hidden;
+    }
+
+    .credential-content.active {
+        grid-template-rows: 1fr;
+        opacity: 1;
+    }
+
+    .credential-rows {
+        overflow: hidden;
+        padding-top: 0.8rem;
+        padding-bottom: 0.4rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+}
+
+/* ========================= Certificate Lightbox Modal ========================= */
+.cert-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.cert-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cert-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.cert-modal-dialog {
+    position: relative;
+    max-width: 960px;
+    width: 100%;
+    max-height: 92vh;
+    border-radius: 20px;
+    border: 1px solid rgba(34, 211, 238, 0.3);
+    background: rgba(15, 23, 42, 0.95);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 50px rgba(34, 211, 238, 0.12);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transform: scale(0.92) translateY(20px);
+    transition: transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
+}
+
+.cert-modal.active .cert-modal-dialog {
+    transform: scale(1) translateY(0);
+}
+
+.cert-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.8rem 2.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.8);
+    gap: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cert-modal-title-wrap {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-width: 0;
+}
+
+.cert-modal-title-wrap i {
+    font-size: 2.2rem;
+    color: var(--accent);
+}
+
+.cert-modal-title {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cert-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.cert-modal-verify-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    font-family: var(--font-heading);
+    color: #34d399;
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.cert-modal-verify-action:hover {
+    background: rgba(16, 185, 129, 0.25);
+    border-color: #34d399;
+    color: #6ee7b7;
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.cert-modal-verify-action.hidden {
+    display: none;
+}
+
+.cert-modal-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1.9rem;
+    text-decoration: none;
+}
+
+.cert-modal-btn:hover {
+    color: var(--text-primary);
+    background: rgba(34, 211, 238, 0.15);
+    border-color: var(--accent);
+}
+
+.cert-modal-btn.close-btn:hover {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: rgba(239, 68, 68, 0.4);
+    color: #f87171;
+}
+
+.cert-modal-body {
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    background: #060a14;
+}
+
+.cert-modal-img {
+    max-width: 100%;
+    max-height: calc(90vh - 130px);
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
 }
 
 /* ========================= Contact Section ========================= */
@@ -1899,6 +2461,11 @@ section {
         grid-template-columns: 1fr;
         gap: 6rem;
     }
+
+    .cloud-creds-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
 }
 
 @media (max-width: 768px) {
@@ -1938,6 +2505,43 @@ section {
         padding: 0.6rem 0.9rem;
     }
 
+    .cloud-card {
+        padding: 2.6rem 2rem;
+    }
+
+    .cloud-title-wrap h3 {
+        font-size: 1.85rem;
+    }
+
+    .cloud-creds-bar {
+        margin-bottom: 2rem;
+    }
+
+    .cloud-cert-preview {
+        height: 220px;
+    }
+
+    .cloud-meta-highlight {
+        padding: 0.9rem 1.2rem;
+        font-size: 1.25rem;
+    }
+
+    .cert-modal {
+        padding: 1.2rem;
+    }
+
+    .cert-modal-header {
+        padding: 1.4rem 1.8rem;
+    }
+
+    .cert-modal-title {
+        font-size: 1.6rem;
+    }
+
+    .cert-modal-body {
+        padding: 1.2rem;
+    }
+
     .appreciation-stats {
         flex-direction: column;
         gap: 1.2rem;
@@ -1958,6 +2562,43 @@ section {
     }
 }
 
+@media (max-width: 580px) {
+    .cloud-meta-highlight {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        padding: 1.1rem 1.3rem;
+    }
+
+    .cloud-creds-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .cloud-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.2rem;
+    }
+
+    .cloud-badge-certified {
+        align-self: flex-start;
+    }
+
+    .credential-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.4rem;
+        padding: 0.8rem 1rem;
+    }
+
+    .credential-value,
+    .credential-link {
+        text-align: left;
+    }
+}
+
 @media (max-width: 480px) {
     .hero-title {
         font-size: 3.5rem;
@@ -1974,5 +2615,57 @@ section {
 
     .contact-form {
         padding: 2.5rem;
+    }
+
+    .cloud-logo-box {
+        width: 46px;
+        height: 46px;
+    }
+
+    .cloud-title-wrap h3 {
+        font-size: 1.7rem;
+    }
+
+    .cloud-card-desc {
+        font-size: 1.35rem;
+    }
+
+    .cloud-card {
+        padding: 2rem 1.4rem;
+        border-radius: 18px;
+    }
+
+    .cloud-cert-preview {
+        height: 185px;
+        padding: 0.5rem;
+        margin-bottom: 1.4rem;
+    }
+
+    .btn-view-cert {
+        padding: 1.15rem 1.6rem;
+        font-size: 1.35rem;
+    }
+
+    .credential-toggle {
+        font-size: 1.25rem;
+    }
+
+    .cloud-creds-container {
+        margin-bottom: 5rem;
+    }
+}
+
+@media (max-width: 375px) {
+    .cloud-card {
+        padding: 1.8rem 1.2rem;
+    }
+
+    .cloud-cert-preview {
+        height: 170px;
+        padding: 0.4rem;
+    }
+
+    .cloud-title-wrap h3 {
+        font-size: 1.6rem;
     }
 }
