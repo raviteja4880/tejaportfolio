@@ -17,9 +17,9 @@ export const PORTFOLIO_KNOWLEDGE: PortfolioKnowledge = {
     whatsapp: "https://wa.me/8885674269"
   },
   portfolio: {
-    website: "https://main.d17ocgm8ef6ex7.amplifyapp.com/",
+    website: "https://tejaportfolio1.netlify.app",
     resume: "assets/Resume.pdf",
-    deployment: "AWS Amplify"
+    deployment: "Netlify"
   },
   skills: {
     frontend: ["HTML", "CSS", "JavaScript", "React", "Bootstrap"],
@@ -99,14 +99,11 @@ export const PORTFOLIO_KNOWLEDGE: PortfolioKnowledge = {
       verificationUrl: "https://learn.microsoft.com/en-us/users/ravitejakandula-5001/credentials/2653e671a95b7940"
     },
     {
-      name: "Introduction to Modern AI",
-      issuer: "AI learning platform",
-      verificationUrl: "https://ik.imagekit.io/pevzq1hlv/Introduction%20to%20Modern%20AI.png"
-    },
-    {
-      name: "Python Essentials",
-      issuer: "Python learning platform",
-      verificationUrl: "https://ik.imagekit.io/pevzq1hlv/Python%20Essentials.png"
+      name: "AWS Certified Cloud Practitioner",
+      issuer: "Amazon Web Services (AWS)",
+      credentialId: "64809437c9a5411aa87fed09e9a45265",
+      completed: "September 28, 2026",
+      verificationUrl: "https://aws.amazon.com/verification"
     }
   ],
   experienceNote:

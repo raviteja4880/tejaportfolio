@@ -2,12 +2,12 @@
 
 A fast, responsive personal portfolio built with vanilla HTML, CSS, and JavaScript — no frameworks, no build step, just clean code and intentional design.
 
-**[Live Site →](https://main.d17ocgm8ef6ex7.amplifyapp.com/)**
+**[Live Site →](https://tejaportfolio1.netlify.app)**
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![AWS Amplify](https://img.shields.io/badge/AWS%20Amplify-FF9900?style=flat&logo=awsamplify&logoColor=white)
+![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat&logo=netlify&logoColor=white)
 
 ---
 
@@ -32,7 +32,7 @@ This is my personal developer portfolio — built to showcase real, shipped proj
 | Interactivity | Vanilla JavaScript (ES6+) |
 | Forms | Formspree |
 | Fonts / Icons | Google Fonts (Inter, Outfit), Boxicons, Devicon |
-| Hosting | AWS Amplify |
+| Hosting | Netlify |
 
 ## Skills Demonstrated Elsewhere
 

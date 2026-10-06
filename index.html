@@ -882,10 +882,21 @@
         </div>
     </div>
 
-    <!-- Ravi AI Chat Launcher -->
-    <button id="ravi-ai-launch" class="ravi-ai-launch" type="button" aria-label="Open Ravi AI assistant" title="Ask Ravi AI">
-        <span class="ravi-ai-launch__icon">AI</span>
-        <span class="ravi-ai-launch__text">Ravi AI</span>
+    <!-- Tejas AI Chat Launcher -->
+    <button id="ravi-ai-launch" class="ravi-ai-launch" type="button" aria-label="Open Tejas AI" title="Ask Tejas AI">
+        <span class="ravi-ai-launch__label">Tejas AI</span>
+        <span class="ravi-ai-launch__icon-shell" aria-hidden="true">
+            <span class="ravi-ai-launch__waves" aria-hidden="true"></span>
+            <span class="ravi-ai-launch__icon" aria-hidden="true">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M17 18.5C17 15.5 19.5 13 22.5 13H41.5C44.5 13 47 15.5 47 18.5V34.5C47 37.5 44.5 40 41.5 40H30L20 48V40.1C18.2 39.2 17 37.4 17 35.2V18.5Z" fill="none" stroke="#C4B5FD" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                    <circle cx="26" cy="27" r="2.2" fill="#C4B5FD"/>
+                    <circle cx="33" cy="27" r="2.2" fill="#C4B5FD"/>
+                    <circle cx="40" cy="27" r="2.2" fill="#C4B5FD"/>
+                    <path d="M49 10L51.2 15.8L57 18L51.2 20.2L49 26L46.8 20.2L41 18L46.8 15.8L49 10Z" fill="#A78BFA" stroke="#E9D5FF" stroke-width="1.2" stroke-linejoin="round"/>
+                </svg>
+            </span>
+        </span>
     </button>
 
     <div id="ravi-ai-overlay" class="ravi-ai-overlay" hidden></div>
@@ -894,20 +905,20 @@
         <div class="ravi-ai-panel__header">
             <div>
                 <p class="ravi-ai-panel__eyebrow">Portfolio Assistant</p>
-                <h3 id="ravi-ai-title">Ravi AI</h3>
+                <h3 id="ravi-ai-title">Tejas AI</h3>
             </div>
-            <button type="button" id="ravi-ai-close" class="ravi-ai-panel__close" aria-label="Close Ravi AI">×</button>
+            <button type="button" id="ravi-ai-close" class="ravi-ai-panel__close" aria-label="Close Tejas AI">×</button>
         </div>
 
         <div id="ravi-ai-messages" class="ravi-ai-panel__messages" aria-live="polite">
             <div class="ravi-ai-message ravi-ai-message--bot">
-                Hi! I’m Ravi AI. Ask me about Ravi’s projects, skills, education, certifications, or portfolio details.
+                Hi! I’m Tejas AI. Ask me about Ravi’s projects, skills, education, certifications, or portfolio details.
             </div>
         </div>
 
         <form id="ravi-ai-form" class="ravi-ai-panel__form">
-            <label class="sr-only" for="ravi-ai-input">Ask Ravi AI</label>
-            <textarea id="ravi-ai-input" rows="3" placeholder="Ask about Ravi's skills, projects, education, or resume..." required></textarea>
+            <label class="sr-only" for="ravi-ai-input">Ask Tejas AI</label>
+            <textarea id="ravi-ai-input" rows="3" placeholder="Ask Tejas AI about Ravi's skills, projects, education, or resume..." required></textarea>
             <button type="submit" class="btn btn-primary ravi-ai-send">Send</button>
         </form>
     </aside>

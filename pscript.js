@@ -973,6 +973,7 @@ document.addEventListener('DOMContentLoaded', () => {
         aiPanel.classList.add('active');
         aiPanel.setAttribute('aria-hidden', 'false');
         aiOverlay.hidden = false;
+        document.body.classList.add('ai-panel-open');
         setTimeout(() => {
             aiInput?.focus();
         }, 100);
@@ -983,6 +984,7 @@ document.addEventListener('DOMContentLoaded', () => {
         aiPanel.classList.remove('active');
         aiPanel.setAttribute('aria-hidden', 'true');
         aiOverlay.hidden = true;
+        document.body.classList.remove('ai-panel-open');
     };
 
     if (aiLaunch && aiPanel && aiOverlay && aiForm && aiInput && aiMessages) {
@@ -1004,6 +1006,16 @@ document.addEventListener('DOMContentLoaded', () => {
             aiMessages.scrollTop = aiMessages.scrollHeight;
         };
 
+        const showTypingIndicator = () => {
+            const indicator = document.createElement('div');
+            indicator.className = 'ravi-ai-message ravi-ai-message--bot ravi-ai-message--typing';
+            indicator.setAttribute('aria-live', 'polite');
+            indicator.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>';
+            aiMessages.appendChild(indicator);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+            return indicator;
+        };
+
         aiForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const message = aiInput.value.trim();
@@ -1014,6 +1026,7 @@ document.addEventListener('DOMContentLoaded', () => {
             aiInput.disabled = true;
             const submitButton = aiForm.querySelector('button[type="submit"]');
             const originalText = submitButton?.textContent || 'Send';
+            const typingIndicator = showTypingIndicator();
             if (submitButton) {
                 submitButton.textContent = 'Thinking...';
                 submitButton.disabled = true;
@@ -1027,7 +1040,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error('Supabase config missing');
                 }
 
-                const response = await fetch(`${SUPABASE_URL}/functions/v1/portfolio-agent`, {
+                                const response = await fetch(`${SUPABASE_URL}/functions/v1/portfolio-agent`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1038,17 +1051,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
 
                 const payload = await response.json();
+
                 if (!response.ok || !payload.success) {
                     throw new Error(payload?.error?.message || 'Unable to respond right now.');
                 }
 
                 const answer = payload.answer || 'I can only answer based on Ravi\'s portfolio information.';
+                typingIndicator.remove();
                 addMessage(answer, 'bot');
 
                 if (Array.isArray(payload.sources) && payload.sources.length > 0) {
                     addMessage(`Sources: ${payload.sources.join(', ')}`, 'bot');
                 }
             } catch (error) {
+                typingIndicator.remove();
                 addMessage(error?.message || 'I’m unable to answer right now. Please try again shortly.', 'bot');
             } finally {
                 aiInput.disabled = false;
