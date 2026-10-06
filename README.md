@@ -52,4 +52,45 @@ The projects featured *in* this portfolio (linked with live demos and source) dr
 
 ---
 
+## Ravi AI (Phase 1)
+
+A lightweight portfolio assistant is available in the browser to answer questions about Ravi's skills, resume, projects, education, and certifications.
+
+### Backend
+
+The Supabase Edge Function lives in `supabase/functions/portfolio-agent` and is exposed at:
+
+`/functions/v1/portfolio-agent`
+
+Required server-side environment variables:
+
+- `GEMINI_API_KEY`
+- `GEMINI_MODEL`
+
+Set these in the Supabase project dashboard or environment configuration. The frontend never calls Gemini directly.
+
+### Deployment
+
+Primary frontend deployment: `https://tejaportfolio1.netlify.app`
+
+AWS Amplify may remain in the repository for secondary or historical deployment use, but the canonical production origin is the Netlify deployment.
+
+### Allowed CORS origins
+
+The Supabase Edge Function allows only the portfolio's known primary production origin and common local development origins:
+
+- `https://tejaportfolio1.netlify.app`
+- `http://localhost:3000`
+- `http://localhost:5500`
+- `http://localhost:8000`
+- `http://127.0.0.1:3000`
+- `http://127.0.0.1:5500`
+- `http://127.0.0.1:8000`
+
+### Notes
+
+- The assistant is grounded in the portfolio's structured knowledge base and will not invent missing information.
+- Requests are validated and rate-limited before reaching the Gemini API.
+- Error responses are intentionally sanitized so raw API details are never exposed to the browser.
+
 © 2026 Ravi Teja Kandula

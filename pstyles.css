@@ -2669,3 +2669,211 @@ section {
         font-size: 1.6rem;
     }
 }
+
+/* ========================= Ravi AI Chat ========================= */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.ravi-ai-launch {
+    position: fixed;
+    right: 2.6rem;
+    bottom: 8.5rem;
+    z-index: 8900;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 1rem 1.5rem;
+    border-radius: 999px;
+    border: 1px solid rgba(34, 211, 238, 0.35);
+    background: rgba(15, 23, 42, 0.86);
+    color: var(--text-primary);
+    box-shadow: 0 14px 30px rgba(2, 6, 23, 0.45);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.ravi-ai-launch:hover {
+    transform: translateY(-2px);
+    border-color: rgba(34, 211, 238, 0.7);
+    box-shadow: 0 18px 35px rgba(34, 211, 238, 0.12);
+}
+
+.ravi-ai-launch__icon {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.18), rgba(168, 85, 247, 0.2));
+    color: var(--accent);
+    font-size: 1.2rem;
+    font-weight: 800;
+    font-family: var(--font-heading);
+}
+
+.ravi-ai-launch__text {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.ravi-ai-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 6, 23, 0.55);
+    backdrop-filter: blur(8px);
+    z-index: 9200;
+}
+
+.ravi-ai-panel {
+    position: fixed;
+    right: 2.4rem;
+    bottom: 2.4rem;
+    width: min(420px, calc(100vw - 2rem));
+    max-height: min(68vh, 620px);
+    display: flex;
+    flex-direction: column;
+    background: rgba(15, 23, 42, 0.96);
+    border: 1px solid rgba(34, 211, 238, 0.25);
+    border-radius: 20px;
+    box-shadow: 0 24px 60px rgba(2, 6, 23, 0.75);
+    overflow: hidden;
+    z-index: 9300;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(12px) scale(0.98);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+}
+
+.ravi-ai-panel.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+}
+
+.ravi-ai-panel__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.6rem 1.8rem;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.1));
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ravi-ai-panel__eyebrow {
+    font-size: 1.1rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+}
+
+.ravi-ai-panel__header h3 {
+    font-size: 2rem;
+    font-family: var(--font-heading);
+    color: var(--text-primary);
+}
+
+.ravi-ai-panel__close {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    font-size: 2.4rem;
+    cursor: pointer;
+}
+
+.ravi-ai-panel__messages {
+    flex: 1;
+    min-height: 200px;
+    max-height: 360px;
+    overflow-y: auto;
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    background: rgba(2, 6, 23, 0.24);
+}
+
+.ravi-ai-message {
+    max-width: 84%;
+    padding: 1.2rem 1.4rem;
+    border-radius: 16px;
+    line-height: 1.5;
+    font-size: 1.4rem;
+    word-break: break-word;
+}
+
+.ravi-ai-message--bot {
+    align-self: flex-start;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(34, 211, 238, 0.2);
+    color: var(--text-primary);
+}
+
+.ravi-ai-message--user {
+    align-self: flex-end;
+    background: linear-gradient(135deg, rgba(34, 211, 238, 0.22), rgba(59, 130, 246, 0.18));
+    border: 1px solid rgba(59, 130, 246, 0.25);
+    color: var(--text-primary);
+}
+
+.ravi-ai-panel__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    padding: 1.5rem 1.6rem 1.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(15, 23, 42, 0.8);
+}
+
+.ravi-ai-panel__form textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 80px;
+    max-height: 150px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    color: var(--text-primary);
+    padding: 1.2rem 1.3rem;
+    font-size: 1.45rem;
+    font-family: var(--font-body);
+}
+
+.ravi-ai-panel__form textarea:focus {
+    border-color: rgba(34, 211, 238, 0.5);
+    box-shadow: 0 0 0 4px rgba(34, 211, 238, 0.12);
+}
+
+.ravi-ai-send {
+    align-self: flex-end;
+    min-width: 120px;
+}
+
+@media (max-width: 768px) {
+    .ravi-ai-launch {
+        right: 1.6rem;
+        bottom: 7.2rem;
+    }
+
+    .ravi-ai-panel {
+        right: 1rem;
+        bottom: 1rem;
+        width: min(92vw, 400px);
+    }
+}

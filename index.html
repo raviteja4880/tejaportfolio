@@ -882,12 +882,35 @@
         </div>
     </div>
 
-    <!-- WhatsApp Floating Button -->
-    <a id="whatsapp-float" target="_blank" class="whatsapp-float" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
-        <div class="whatsapp-ring"></div>
-        <i class="bx bxl-whatsapp" aria-hidden="true"></i>
-        <span class="whatsapp-tooltip">Let's chat! 👋</span>
-    </a>
+    <!-- Ravi AI Chat Launcher -->
+    <button id="ravi-ai-launch" class="ravi-ai-launch" type="button" aria-label="Open Ravi AI assistant" title="Ask Ravi AI">
+        <span class="ravi-ai-launch__icon">AI</span>
+        <span class="ravi-ai-launch__text">Ravi AI</span>
+    </button>
+
+    <div id="ravi-ai-overlay" class="ravi-ai-overlay" hidden></div>
+
+    <aside id="ravi-ai-panel" class="ravi-ai-panel" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="ravi-ai-title">
+        <div class="ravi-ai-panel__header">
+            <div>
+                <p class="ravi-ai-panel__eyebrow">Portfolio Assistant</p>
+                <h3 id="ravi-ai-title">Ravi AI</h3>
+            </div>
+            <button type="button" id="ravi-ai-close" class="ravi-ai-panel__close" aria-label="Close Ravi AI">×</button>
+        </div>
+
+        <div id="ravi-ai-messages" class="ravi-ai-panel__messages" aria-live="polite">
+            <div class="ravi-ai-message ravi-ai-message--bot">
+                Hi! I’m Ravi AI. Ask me about Ravi’s projects, skills, education, certifications, or portfolio details.
+            </div>
+        </div>
+
+        <form id="ravi-ai-form" class="ravi-ai-panel__form">
+            <label class="sr-only" for="ravi-ai-input">Ask Ravi AI</label>
+            <textarea id="ravi-ai-input" rows="3" placeholder="Ask about Ravi's skills, projects, education, or resume..." required></textarea>
+            <button type="submit" class="btn btn-primary ravi-ai-send">Send</button>
+        </form>
+    </aside>
 
 </body>
 

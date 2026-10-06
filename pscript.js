@@ -956,4 +956,108 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // ----------------------------------------------------
+    // 10. Ravi AI Chat Assistant
+    // ----------------------------------------------------
+    const aiLaunch = document.getElementById('ravi-ai-launch');
+    const aiPanel = document.getElementById('ravi-ai-panel');
+    const aiOverlay = document.getElementById('ravi-ai-overlay');
+    const aiClose = document.getElementById('ravi-ai-close');
+    const aiForm = document.getElementById('ravi-ai-form');
+    const aiInput = document.getElementById('ravi-ai-input');
+    const aiMessages = document.getElementById('ravi-ai-messages');
+
+    const openAiChat = () => {
+        if (!aiPanel || !aiOverlay) return;
+        aiPanel.classList.add('active');
+        aiPanel.setAttribute('aria-hidden', 'false');
+        aiOverlay.hidden = false;
+        setTimeout(() => {
+            aiInput?.focus();
+        }, 100);
+    };
+
+    const closeAiChat = () => {
+        if (!aiPanel || !aiOverlay) return;
+        aiPanel.classList.remove('active');
+        aiPanel.setAttribute('aria-hidden', 'true');
+        aiOverlay.hidden = true;
+    };
+
+    if (aiLaunch && aiPanel && aiOverlay && aiForm && aiInput && aiMessages) {
+        aiLaunch.addEventListener('click', openAiChat);
+        aiOverlay.addEventListener('click', closeAiChat);
+        aiClose?.addEventListener('click', closeAiChat);
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && aiPanel.classList.contains('active')) {
+                closeAiChat();
+            }
+        });
+
+        const addMessage = (text, sender = 'bot') => {
+            const bubble = document.createElement('div');
+            bubble.className = `ravi-ai-message ravi-ai-message--${sender}`;
+            bubble.textContent = text;
+            aiMessages.appendChild(bubble);
+            aiMessages.scrollTop = aiMessages.scrollHeight;
+        };
+
+        aiForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const message = aiInput.value.trim();
+            if (!message) return;
+
+            addMessage(message, 'user');
+            aiInput.value = '';
+            aiInput.disabled = true;
+            const submitButton = aiForm.querySelector('button[type="submit"]');
+            const originalText = submitButton?.textContent || 'Send';
+            if (submitButton) {
+                submitButton.textContent = 'Thinking...';
+                submitButton.disabled = true;
+            }
+
+            try {
+                const SUPABASE_URL = (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_URL) || '';
+                const SUPABASE_KEY = (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_ANON_KEY) || '';
+
+                if (!SUPABASE_URL || !SUPABASE_KEY) {
+                    throw new Error('Supabase config missing');
+                }
+
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/portfolio-agent`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    },
+                    body: JSON.stringify({ message })
+                });
+
+                const payload = await response.json();
+                if (!response.ok || !payload.success) {
+                    throw new Error(payload?.error?.message || 'Unable to respond right now.');
+                }
+
+                const answer = payload.answer || 'I can only answer based on Ravi\'s portfolio information.';
+                addMessage(answer, 'bot');
+
+                if (Array.isArray(payload.sources) && payload.sources.length > 0) {
+                    addMessage(`Sources: ${payload.sources.join(', ')}`, 'bot');
+                }
+            } catch (error) {
+                addMessage(error?.message || 'I’m unable to answer right now. Please try again shortly.', 'bot');
+            } finally {
+                aiInput.disabled = false;
+                aiInput.focus();
+                if (submitButton) {
+                    submitButton.textContent = originalText;
+                    submitButton.disabled = false;
+                }
+            }
+        });
+    }
 });
