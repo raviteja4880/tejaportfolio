@@ -1,96 +1,75 @@
 # Ravi Teja — Portfolio
 
-A fast, responsive personal portfolio built with vanilla HTML, CSS, and JavaScript — no frameworks, no build step, just clean code and intentional design.
+<p align="center">
+  <strong>A fast, responsive personal portfolio built with vanilla HTML, CSS, and JavaScript.</strong>
+  <br>
+  No frameworks. No build step. Clean code and intentional design.
+</p>
 
-**[Live Site →](https://tejaportfolio1.netlify.app)**
+<p align="center">
+  <a href="https://tejaportfolio1.netlify.app">
+    <strong>🌐 Live Site →</strong>
+  </a>
+</p>
 
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![Netlify](https://img.shields.io/badge/Netlify-00C7B7?style=flat&logo=netlify&logoColor=white)
+<p align="center">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Netlify-00C7B7?style=flat&logo=netlify&logoColor=white" alt="Netlify">
+</p>
 
 ---
 
 ## Overview
 
-This is my personal developer portfolio — built to showcase real, shipped projects (an e-commerce platform, a RAG pipeline, a safety app, and a real-time quiz platform) rather than just list skills. It's intentionally framework-free: every animation, layout, and interaction is hand-written to keep the codebase lightweight and the load time fast.
+This is my personal developer portfolio — built to showcase real, shipped projects (an e-commerce platform, a RAG pipeline, a safety app, and a real-time quiz platform) rather than just list skills.
 
-## Features
-
-- **Glassmorphic dark theme** with a custom cursor, mesh-gradient background, and scroll-triggered reveal animations via the Intersection Observer API
-- **Fully responsive** across mobile, tablet, and desktop, including a custom slide-out mobile nav
-- **Working contact form** wired to Formspree with async submission, loading states, and toast feedback — no page redirect
-- **Lazy-loaded images** with explicit dimensions to avoid layout shift
-- **Accessible by design** — semantic structure, `aria-label`s on icon-only links, keyboard-navigable menu toggle
-- **SEO-ready** with Open Graph and Twitter Card meta tags for clean link previews when shared
-
-## Tech Stack (this repo)
-
-| Layer | Tools |
-|---|---|
-| Markup / Styling | HTML5, CSS3 (custom properties, Grid, Flexbox) |
-| Interactivity | Vanilla JavaScript (ES6+) |
-| Forms | Formspree |
-| Fonts / Icons | Google Fonts (Inter, Outfit), Boxicons, Devicon |
-| Hosting | Netlify |
-
-## Skills Demonstrated Elsewhere
-
-The projects featured *in* this portfolio (linked with live demos and source) draw on a broader stack:
-
-- **Frontend**: React.js, Bootstrap
-- **Backend**: Node.js, Express.js, FastAPI, JWT, Bcrypt
-- **Databases**: MongoDB, MySQL, Redis
-- **Cloud / DevOps**: AWS, Azure, Git, GitHub Actions
-- **AI / ML**: RAG pipelines, vector search, Pinecone, LLMs
- 
-## Contact
-
-- **Email**: [ravitejakandul@gmail.com](mailto:[ravitejakandul@gmail.com])
-- **LinkedIn**: [linkedin.com/in/ravitejakandula](https://www.linkedin.com/in/ravitejakandula)
-- **GitHub**: [github.com/raviteja4880](https://github.com/raviteja4880)
+It's intentionally framework-free: every animation, layout, and interaction is hand-written to keep the codebase lightweight and the load time fast.
 
 ---
 
-## Ravi AI (Phase 1)
+## Features
 
-A lightweight portfolio assistant is available in the browser to answer questions about Ravi's skills, resume, projects, education, and certifications.
+| | Feature |
+|---|---|
+| ✦ | **Tejas AI — Built-in Portfolio Assistant** that answers questions about Ravi's projects, technical skills, education, certifications, resume, and portfolio using an AI-powered workflow |
+| ◈ | **Glassmorphic dark theme** with a custom cursor, mesh-gradient background, and scroll-triggered reveal animations via the Intersection Observer API |
+| ◈ | **Fully responsive** across mobile, tablet, and desktop, including a custom slide-out mobile nav |
+| ◈ | **Working contact form** wired to Formspree with async submission, loading states, and toast feedback — no page redirect |
+| ◈ | **Lazy-loaded images** with explicit dimensions to avoid layout shift |
+| ◈ | **Accessible by design** — semantic structure, `aria-label`s on icon-only links, keyboard-navigable menu toggle |
+| ◈ | **SEO-ready** with Open Graph and Twitter Card meta tags for clean link previews when shared |
 
-### Backend
+---
 
-The Supabase Edge Function lives in `supabase/functions/portfolio-agent` and is exposed at:
+## Tech Stack
 
-`/functions/v1/portfolio-agent`
+| Area | Technologies |
+|---|---|
+| **Frontend** | HTML5, CSS3, JavaScript |
+| **AI Assistant** | Gemini, Supabase Edge Functions |
+| **Backend / Services** | Supabase |
+| **Forms** | Formspree |
+| **Deployment** | Netlify |
+| **APIs / Web** | REST APIs, Fetch API |
 
-Required server-side environment variables:
+---
 
-- `GEMINI_API_KEY`
-- `GEMINI_MODEL`
+## Tejas AI
 
-Set these in the Supabase project dashboard or environment configuration. The frontend never calls Gemini directly.
+**Tejas AI** is the portfolio's built-in AI assistant.
 
-### Deployment
+It can answer questions about:
 
-Primary frontend deployment: `https://tejaportfolio1.netlify.app`
+- Ravi's projects
+- technical skills
+- education
+- certifications
+- resume
+- portfolio information
 
-AWS Amplify may remain in the repository for secondary or historical deployment use, but the canonical production origin is the Netlify deployment.
+**Architecture**
 
-### Allowed CORS origins
-
-The Supabase Edge Function allows only the portfolio's known primary production origin and common local development origins:
-
-- `https://tejaportfolio1.netlify.app`
-- `http://localhost:3000`
-- `http://localhost:5500`
-- `http://localhost:8000`
-- `http://127.0.0.1:3000`
-- `http://127.0.0.1:5500`
-- `http://127.0.0.1:8000`
-
-### Notes
-
-- The assistant is grounded in the portfolio's structured knowledge base and will not invent missing information.
-- Requests are validated and rate-limited before reaching the Gemini API.
-- Error responses are intentionally sanitized so raw API details are never exposed to the browser.
-
-© 2026 Ravi Teja Kandula
+```text
+Netlify → Supabase Edge Function → Gemini

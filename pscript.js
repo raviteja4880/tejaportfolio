@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     // 1. Smooth Navigation Highlighting
     const sections = document.querySelectorAll('section');
     const navLinks = document.querySelectorAll('.nav-link');
@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 5. Form Handling — AJAX submit with reset + success feedback
+    // 5. Form Handling â€” AJAX submit with reset + success feedback
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         // Create success/error toast element
@@ -174,7 +174,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 4000);
         };
 
-        contactForm.addEventListener('submit', async (e) => {
+                contactForm.addEventListener('submit', async (e) => {
             e.preventDefault(); // Stop Formspree redirect
 
             const btn = contactForm.querySelector('button[type="submit"]');
@@ -195,7 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (response.ok) {
                     // ✅ Success — reset form and show toast
                     contactForm.reset();
-                    showToast('✓ Message sent! I\'ll get back to you soon.', true);
+                    showToast('✓ Message sent! I’ll get back to you soon.', true);
                 } else {
                     const data = await response.json();
                     const errMsg = data?.errors?.map(e => e.message).join(', ') || 'Something went wrong.';
@@ -211,7 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // 6. Year Update
+// 6. Year Update
     const yearSpan = document.getElementById('year');
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. WhatsApp Link with Proper Message
     const whatsappLink = document.getElementById('whatsapp-float');
     if (whatsappLink) {
-        const message = "Hi Ravi Teja! Saw your portfolio — really impressive work! I'd love to discuss an opportunity with you. Are you available for a quick chat?";
+        const message = "Hi Ravi Teja! Saw your portfolio â€” really impressive work! I'd love to discuss an opportunity with you. Are you available for a quick chat?";
         const encodedMessage = encodeURIComponent(message);
         whatsappLink.href = `https://wa.me/918885674269?text=${encodedMessage}`;
     }
@@ -766,7 +766,7 @@ document.addEventListener('DOMContentLoaded', () => {
             for (let i = 0; i < 6; i++) {
                 const heart = document.createElement('span');
                 heart.className = 'floating-heart';
-                heart.textContent = '❤️';
+                heart.textContent = 'â¤ï¸';
                 heart.style.left = `${40 + Math.random() * 20}%`;
                 heart.style.top = '50%';
                 heart.style.setProperty('--rotate', `${-30 + Math.random() * 60}deg`);
@@ -784,7 +784,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (hasLiked) {
             appreciationBtn.classList.add('liked');
-            appreciationBtn.querySelector('.btn-icon').textContent = '❤️';
+            appreciationBtn.querySelector('.btn-icon').textContent = 'â¤ï¸';
             appreciationBtn.querySelector('.btn-text').textContent = 'Thanks for the appreciation!';
         }
 
@@ -828,7 +828,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Heart pop animation
             appreciationBtn.classList.add('heart-pop');
-            appreciationBtn.querySelector('.btn-icon').textContent = '❤️';
+            appreciationBtn.querySelector('.btn-icon').textContent = 'â¤ï¸';
             appreciationBtn.addEventListener('animationend', () => {
                 appreciationBtn.classList.remove('heart-pop');
             }, { once: true });
@@ -998,10 +998,103 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
+        const stripUserFacingSourceMetadata = (value) => {
+            const sourceText = typeof value === 'string' ? value : String(value ?? '');
+            if (!sourceText) return '';
+
+            const lines = sourceText.split(/\r?\n/);
+            const filteredLines = [];
+            let droppingSourceBlock = false;
+
+            lines.forEach((rawLine) => {
+                const line = rawLine.trim();
+
+                if (/^(?:\*\*)?(?:Sources?|Source|Knowledge source|Internal source|References?)(?:\*\*)?\s*:/i.test(line)) {
+                    droppingSourceBlock = true;
+                    return;
+                }
+
+                if (droppingSourceBlock) {
+                    if (!line) {
+                        return;
+                    }
+
+                    const isSourceListEntry = /^(?:[-*]|\d+\.)\s+/.test(line) || /^https?:\/\//i.test(line);
+                    if (isSourceListEntry) {
+                        return;
+                    }
+
+                    droppingSourceBlock = false;
+                }
+
+                filteredLines.push(rawLine);
+            });
+
+            return filteredLines.join('\n').replace(/\n{3,}/g, '\n\n').trim();
+        };
+
+        const renderMarkdownSafe = (text) => {
+            const sourceText = stripUserFacingSourceMetadata(text);
+            if (!sourceText) return '';
+
+            if (typeof marked === 'undefined') {
+                return sourceText
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/\n/g, '<br>');
+            }
+
+            const rawHtml = marked.parse(sourceText, {
+                breaks: true,
+                gfm: true,
+                headerIds: false,
+                mangle: false
+            });
+
+            return typeof DOMPurify !== 'undefined'
+                ? DOMPurify.sanitize(rawHtml, {
+                    ALLOWED_TAGS: [
+                        'a', 'b', 'blockquote', 'br', 'code', 'em', 'h1', 'h2', 'h3',
+                        'h4', 'h5', 'h6', 'hr', 'i', 'li', 'ol', 'p', 'pre', 'strong',
+                        'table', 'tbody', 'td', 'th', 'thead', 'tr', 'ul'
+                    ],
+                    ALLOWED_ATTR: ['href', 'target', 'rel', 'title'],
+                    ALLOWED_URI_REGEXP: /^(?:(?:https?|mailto):|#)/i,
+                    ADD_ATTR: ['target', 'rel'],
+                    FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed'],
+                    FORBID_ATTR: ['srcdoc', 'style'],
+                    transformTags: {
+                        a: (tagName, attribs) => {
+                            const href = typeof attribs.href === 'string' ? attribs.href.trim() : '';
+                            if (!href || !/^(?:https?:\/\/|mailto:|#)/i.test(href)) {
+                                return { tagName: 'span', attribs: {} };
+                            }
+
+                            return {
+                                tagName: 'a',
+                                attribs: {
+                                    href,
+                                    target: '_blank',
+                                    rel: 'noopener noreferrer'
+                                }
+                            };
+                        }
+                    }
+                })
+                : rawHtml;
+        };
+
         const addMessage = (text, sender = 'bot') => {
             const bubble = document.createElement('div');
             bubble.className = `ravi-ai-message ravi-ai-message--${sender}`;
-            bubble.textContent = text;
+
+            if (sender === 'bot') {
+                bubble.innerHTML = renderMarkdownSafe(text);
+            } else {
+                bubble.textContent = String(text ?? '');
+            }
+
             aiMessages.appendChild(bubble);
             aiMessages.scrollTop = aiMessages.scrollHeight;
         };
@@ -1016,6 +1109,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return indicator;
         };
 
+        const setAiSubmitState = (button, isBusy) => {
+            if (!button) return;
+            button.disabled = isBusy;
+            button.classList.toggle('is-loading', isBusy);
+            button.setAttribute('aria-busy', String(isBusy));
+            button.setAttribute('aria-label', isBusy ? 'Sending message' : 'Send message');
+        };
+
+        aiInput.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                const message = aiInput.value.trim();
+                if (!message) {
+                    event.preventDefault();
+                    return;
+                }
+
+                event.preventDefault();
+                aiForm.requestSubmit();
+            }
+        });
+
         aiForm.addEventListener('submit', async (event) => {
             event.preventDefault();
             const message = aiInput.value.trim();
@@ -1025,12 +1139,8 @@ document.addEventListener('DOMContentLoaded', () => {
             aiInput.value = '';
             aiInput.disabled = true;
             const submitButton = aiForm.querySelector('button[type="submit"]');
-            const originalText = submitButton?.textContent || 'Send';
             const typingIndicator = showTypingIndicator();
-            if (submitButton) {
-                submitButton.textContent = 'Thinking...';
-                submitButton.disabled = true;
-            }
+            setAiSubmitState(submitButton, true);
 
             try {
                 const SUPABASE_URL = (typeof CONFIG !== 'undefined' && CONFIG.SUPABASE_URL) || '';
@@ -1040,7 +1150,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     throw new Error('Supabase config missing');
                 }
 
-                                const response = await fetch(`${SUPABASE_URL}/functions/v1/portfolio-agent`, {
+                const response = await fetch(`${SUPABASE_URL}/functions/v1/portfolio-agent`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1059,20 +1169,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 const answer = payload.answer || 'I can only answer based on Ravi\'s portfolio information.';
                 typingIndicator.remove();
                 addMessage(answer, 'bot');
-
-                if (Array.isArray(payload.sources) && payload.sources.length > 0) {
-                    addMessage(`Sources: ${payload.sources.join(', ')}`, 'bot');
-                }
             } catch (error) {
                 typingIndicator.remove();
-                addMessage(error?.message || 'I’m unable to answer right now. Please try again shortly.', 'bot');
+                addMessage(error?.message || 'Iï¿½m unable to answer right now. Please try again shortly.', 'bot');
             } finally {
                 aiInput.disabled = false;
                 aiInput.focus();
-                if (submitButton) {
-                    submitButton.textContent = originalText;
-                    submitButton.disabled = false;
-                }
+                setAiSubmitState(submitButton, false);
             }
         });
     }

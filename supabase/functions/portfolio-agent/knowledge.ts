@@ -1,4 +1,4 @@
-import type { PortfolioKnowledge } from "./types.ts";
+import type { PortfolioKnowledge } from "./types";
 
 export const PORTFOLIO_KNOWLEDGE: PortfolioKnowledge = {
   profile: {

@@ -35,6 +35,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
 
     <link rel="stylesheet" href="pstyles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.2.4/dist/purify.min.js"></script>
     <script defer src="config.js"></script>
     <script defer src="pscript.js"></script>
 </head>
@@ -912,14 +914,19 @@
 
         <div id="ravi-ai-messages" class="ravi-ai-panel__messages" aria-live="polite">
             <div class="ravi-ai-message ravi-ai-message--bot">
-                Hi! I’m Tejas AI. Ask me about Ravi’s projects, skills, education, certifications, or portfolio details.
+                Hi! I’m Tejas AI. Ask me about Ravi Teja’s projects, skills, education, certifications, or portfolio details.
             </div>
         </div>
 
         <form id="ravi-ai-form" class="ravi-ai-panel__form">
             <label class="sr-only" for="ravi-ai-input">Ask Tejas AI</label>
-            <textarea id="ravi-ai-input" rows="3" placeholder="Ask Tejas AI about Ravi's skills, projects, education, or resume..." required></textarea>
-            <button type="submit" class="btn btn-primary ravi-ai-send">Send</button>
+            <textarea id="ravi-ai-input" rows="2" placeholder="Ask Tejas AI about Ravi's skills, projects, education..." required></textarea>
+            <button type="submit" class="btn btn-primary ravi-ai-send" aria-label="Send message">
+                <svg class="ravi-ai-send__icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path d="M3.2 20.3L21 12 3.2 3.7l1.8 6.4L15 12l-9.9 1.9-1.8 6.4z" fill="currentColor"/>
+                </svg>
+                <span class="sr-only">Send</span>
+            </button>
         </form>
     </aside>
 
