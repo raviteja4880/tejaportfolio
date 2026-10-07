@@ -134,7 +134,7 @@
         });
     }
 
-    // 5. Form Handling â€” AJAX submit with reset + success feedback
+    // 5. Form Handling — AJAX submit with reset + success feedback
     const contactForm = document.querySelector('.contact-form');
     if (contactForm) {
         // Create success/error toast element
@@ -220,7 +220,7 @@
     // 7. WhatsApp Link with Proper Message
     const whatsappLink = document.getElementById('whatsapp-float');
     if (whatsappLink) {
-        const message = "Hi Ravi Teja! Saw your portfolio â€” really impressive work! I'd love to discuss an opportunity with you. Are you available for a quick chat?";
+        const message = "Hi Ravi Teja! Saw your portfolio — really impressive work! I'd love to discuss an opportunity with you. Are you available for a quick chat?";
         const encodedMessage = encodeURIComponent(message);
         whatsappLink.href = `https://wa.me/918885674269?text=${encodedMessage}`;
     }
@@ -766,7 +766,7 @@
             for (let i = 0; i < 6; i++) {
                 const heart = document.createElement('span');
                 heart.className = 'floating-heart';
-                heart.textContent = 'â¤ï¸';
+                heart.textContent = '💗';
                 heart.style.left = `${40 + Math.random() * 20}%`;
                 heart.style.top = '50%';
                 heart.style.setProperty('--rotate', `${-30 + Math.random() * 60}deg`);
@@ -780,12 +780,22 @@
         };
 
         // --- Check localStorage for liked state ---
+        const APPRECIATION_EMPTY_HEART = '🤍';
+        const APPRECIATION_FILLED_HEART = '💗';
+        const setAppreciationLikedState = () => {
+            appreciationBtn.classList.add('liked');
+            appreciationBtn.querySelector('.btn-icon').textContent = APPRECIATION_FILLED_HEART;
+            appreciationBtn.querySelector('.btn-text').textContent = 'Thanks for the appreciation!';
+            localStorage.setItem('portfolio_liked', 'true');
+        };
+
         const hasLiked = localStorage.getItem('portfolio_liked') === 'true';
 
         if (hasLiked) {
-            appreciationBtn.classList.add('liked');
-            appreciationBtn.querySelector('.btn-icon').textContent = 'â¤ï¸';
-            appreciationBtn.querySelector('.btn-text').textContent = 'Thanks for the appreciation!';
+            setAppreciationLikedState();
+        } else {
+            appreciationBtn.querySelector('.btn-icon').textContent = APPRECIATION_EMPTY_HEART;
+            appreciationBtn.querySelector('.btn-text').textContent = 'Like This Portfolio';
         }
 
         // --- Load stats on page load (lazy, non-blocking) ---
@@ -828,7 +838,7 @@
 
             // Heart pop animation
             appreciationBtn.classList.add('heart-pop');
-            appreciationBtn.querySelector('.btn-icon').textContent = 'â¤ï¸';
+            appreciationBtn.querySelector('.btn-icon').textContent = '💗';
             appreciationBtn.addEventListener('animationend', () => {
                 appreciationBtn.classList.remove('heart-pop');
             }, { once: true });
@@ -838,8 +848,7 @@
 
             // Update button to liked state
             setTimeout(() => {
-                appreciationBtn.querySelector('.btn-text').textContent = 'Thanks for the appreciation!';
-                appreciationBtn.classList.add('liked');
+                setAppreciationLikedState();
             }, 600);
 
             // Show appreciation message
